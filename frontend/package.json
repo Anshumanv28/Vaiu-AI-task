@@ -4,11 +4,11 @@
   "description": "React frontend for restaurant voice booking agent",
   "private": true,
   "dependencies": {
+    "@livekit/components-react": "^1.0.0",
+    "livekit-client": "^1.15.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1",
-    "livekit-client": "^1.15.1",
-    "@livekit/components-react": "^1.0.0"
+    "react-scripts": "5.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -32,5 +32,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "devDependencies": {}
 }

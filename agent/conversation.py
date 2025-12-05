@@ -13,6 +13,7 @@ class ConversationState(Enum):
     COLLECTING_TIME = "collecting_time"
     COLLECTING_CUISINE = "collecting_cuisine"
     COLLECTING_REQUESTS = "collecting_requests"
+    COLLECTING_EMAIL = "collecting_email"
     FETCHING_WEATHER = "fetching_weather"
     SUGGESTING_SEATING = "suggesting_seating"
     CONFIRMING = "confirming"
@@ -31,6 +32,7 @@ class BookingContext:
         self.booking_time: Optional[str] = None  # HH:mm format (24-hour)
         self.cuisine_preference: str = ""
         self.special_requests: str = ""
+        self.customer_email: Optional[str] = None
         self.weather_info: Optional[Dict[str, Any]] = None
         self.seating_preference: str = "indoor"
         self.booking_id: Optional[str] = None
@@ -44,6 +46,7 @@ class BookingContext:
             "bookingTime": self.booking_time,
             "cuisinePreference": self.cuisine_preference,
             "specialRequests": self.special_requests,
+            "customerEmail": self.customer_email or "",
             "weatherInfo": self.weather_info,
             "seatingPreference": self.seating_preference
         }

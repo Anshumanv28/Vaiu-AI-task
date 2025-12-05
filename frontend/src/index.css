@@ -1,3 +1,90 @@
+/* Base Styles and CSS Variables */
+:root {
+  /* Baby Blue Ice Colors */
+  --baby-blue-ice-50: #e7f1fd;
+  --baby-blue-ice-100: #cfe3fc;
+  --baby-blue-ice-200: #a0c8f8;
+  --baby-blue-ice-300: #70acf5;
+  --baby-blue-ice-400: #4090f2;
+  --baby-blue-ice-500: #1174ee;
+  --baby-blue-ice-600: #0d5dbf;
+  --baby-blue-ice-700: #0a468f;
+  --baby-blue-ice-800: #072f5f;
+  --baby-blue-ice-900: #031730;
+  --baby-blue-ice-950: #021021;
+
+  /* Aquamarine Colors */
+  --aquamarine-50: #e9fbf4;
+  --aquamarine-100: #d4f7e9;
+  --aquamarine-200: #a8f0d3;
+  --aquamarine-300: #7de8bd;
+  --aquamarine-400: #52e0a7;
+  --aquamarine-500: #26d991;
+  --aquamarine-600: #1fad74;
+  --aquamarine-700: #178257;
+  --aquamarine-800: #0f573a;
+  --aquamarine-900: #082b1d;
+  --aquamarine-950: #051e14;
+
+  /* Rosy Taupe Colors */
+  --rosy-taupe-50: #f7efee;
+  --rosy-taupe-100: #efdedc;
+  --rosy-taupe-200: #dfbeb9;
+  --rosy-taupe-300: #cf9d96;
+  --rosy-taupe-400: #bf7c73;
+  --rosy-taupe-500: #af5b50;
+  --rosy-taupe-600: #8c4940;
+  --rosy-taupe-700: #693730;
+  --rosy-taupe-800: #462520;
+  --rosy-taupe-900: #231210;
+  --rosy-taupe-950: #180d0b;
+
+  /* Blush Rose Colors */
+  --blush-rose-50: #fbe9ee;
+  --blush-rose-100: #f7d4de;
+  --blush-rose-200: #efa9bd;
+  --blush-rose-300: #e77e9c;
+  --blush-rose-400: #df537b;
+  --blush-rose-500: #d72859;
+  --blush-rose-600: #ac2048;
+  --blush-rose-700: #811836;
+  --blush-rose-800: #561024;
+  --blush-rose-900: #2b0812;
+  --blush-rose-950: #1e060d;
+
+  /* Vintage Berry Colors */
+  --vintage-berry-50: #faebf1;
+  --vintage-berry-100: #f5d6e4;
+  --vintage-berry-200: #ebadc9;
+  --vintage-berry-300: #e085ae;
+  --vintage-berry-400: #d65c93;
+  --vintage-berry-500: #cc3378;
+  --vintage-berry-600: #a32960;
+  --vintage-berry-700: #7a1f48;
+  --vintage-berry-800: #521430;
+  --vintage-berry-900: #290a18;
+  --vintage-berry-950: #1d0711;
+
+  /* Semantic Colors */
+  --primary: var(--baby-blue-ice-500);
+  --accent: var(--aquamarine-500);
+  --warm: var(--rosy-taupe-500);
+  --highlight: var(--blush-rose-500);
+  --secondary: var(--vintage-berry-500);
+
+  /* Neutral Gray Colors */
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-800: #1f2937;
+  --gray-900: #111827;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -5,17 +92,85 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    "Helvetica Neue", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   min-height: 100vh;
-  padding: 20px;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInSlide {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-25%);
+  }
+}
+
+@keyframes ping {
+  75%,
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

@@ -17,6 +17,7 @@ router.post("/", async (req, res) => {
       specialRequests,
       weatherInfo,
       seatingPreference,
+      customerEmail,
     } = req.body;
 
     // Validation
@@ -57,6 +58,7 @@ router.post("/", async (req, res) => {
       specialRequests: specialRequests || "",
       weatherInfo: weatherInfo || null,
       seatingPreference: seatingPreference || "indoor",
+      customerEmail: customerEmail || "",
       status: "pending",
     });
 

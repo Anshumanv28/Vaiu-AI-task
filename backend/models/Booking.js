@@ -12,6 +12,10 @@ const bookingSchema = new mongoose.Schema({
     default: "Guest",
     required: true,
   },
+  customerEmail: {
+    type: String,
+    default: "",
+  },
   numberOfGuests: {
     type: Number,
     required: true,
