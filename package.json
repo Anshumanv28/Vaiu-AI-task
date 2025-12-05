@@ -1,0 +1,17 @@
+{
+  "name": "restaurant-voice-agent",
+  "version": "1.0.0",
+  "description": "Full-stack MERN voice-enabled restaurant booking agent",
+  "scripts": {
+    "backend": "cd backend && npm start",
+    "backend:dev": "cd backend && npm run dev",
+    "frontend": "cd frontend && npm start",
+    "agent": "cd agent && python agent.py dev",
+    "install:all": "cd backend && npm install && cd ../frontend && npm install && cd ../agent && pip install -r requirements.txt",
+    "agent:install": "pip install -r agent/requirements.txt",
+    "agent:dev": "cd agent && python agent.py dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
