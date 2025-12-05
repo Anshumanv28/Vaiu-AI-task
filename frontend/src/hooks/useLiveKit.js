@@ -81,10 +81,89 @@ export const useLiveKit = () => {
         }
       );
 
+      // Listen for data channel messages (transcripts from agent)
+      newRoom.on(
+        RoomEvent.DataReceived,
+        (payload, participant, kind, topic) => {
+          if (participant instanceof RemoteParticipant) {
+            // This is from the agent
+            try {
+              const text = new TextDecoder().decode(payload);
+              if (text && text.trim()) {
+                // Try to parse as JSON first
+                try {
+                  const data = JSON.parse(text);
+                  if (data.type === "transcript" || data.text || data.message) {
+                    const transcriptText =
+                      data.text || data.transcript || data.message;
+                    const speaker = data.speaker || "agent";
+                    if (transcriptText) {
+                      setTranscript((prev) => [
+                        ...prev,
+                        {
+                          speaker,
+                          text: transcriptText,
+                          timestamp: new Date(),
+                        },
+                      ]);
+                    }
+                  }
+                } catch (parseError) {
+                  // Not JSON, treat as plain text transcript
+                  setTranscript((prev) => [
+                    ...prev,
+                    {
+                      speaker: "agent",
+                      text: text.trim(),
+                      timestamp: new Date(),
+                    },
+                  ]);
+                }
+              }
+            } catch (e) {
+              console.error("Error processing data channel message:", e);
+            }
+          }
+        }
+      );
+
       // Connect to room using JWT token
       await newRoom.connect(config.url, token);
 
       setRoom(newRoom);
+
+      // Set up Web Speech API for user transcript capture
+      if (
+        "webkitSpeechRecognition" in window ||
+        "SpeechRecognition" in window
+      ) {
+        const SpeechRecognition =
+          window.SpeechRecognition || window.webkitSpeechRecognition;
+        const recognition = new SpeechRecognition();
+        recognition.continuous = true;
+        recognition.interimResults = false;
+        recognition.lang = "en-US";
+
+        recognition.onresult = (event) => {
+          const last = event.results.length - 1;
+          const text = event.results[last][0].transcript;
+          if (text && text.trim()) {
+            setTranscript((prev) => [
+              ...prev,
+              { speaker: "user", text: text.trim(), timestamp: new Date() },
+            ]);
+          }
+        };
+
+        recognition.onerror = (event) => {
+          console.error("Speech recognition error:", event.error);
+        };
+
+        recognition.start();
+
+        // Store recognition in room for cleanup
+        newRoom._speechRecognition = recognition;
+      }
     } catch (err) {
       console.error("LiveKit connection error:", err);
       setError(err.message);
@@ -94,6 +173,11 @@ export const useLiveKit = () => {
 
   const disconnect = useCallback(async () => {
     if (room) {
+      // Stop speech recognition if active
+      if (room._speechRecognition) {
+        room._speechRecognition.stop();
+        delete room._speechRecognition;
+      }
       await room.disconnect();
       setRoom(null);
       setIsConnected(false);
