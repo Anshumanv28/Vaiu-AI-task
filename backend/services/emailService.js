@@ -7,13 +7,44 @@ const nodemailer = require("nodemailer");
  */
 const sendBookingConfirmation = async (booking) => {
   try {
+    // Validate and clean environment variables
+    const emailUser = process.env.EMAIL_USER?.trim();
+    const emailPass = process.env.EMAIL_PASS?.trim();
+    const restaurantEmail = process.env.RESTAURANT_EMAIL?.trim();
+
+    if (!emailUser || !emailPass) {
+      throw new Error(
+        "Email configuration missing: EMAIL_USER and EMAIL_PASS must be set in environment variables"
+      );
+    }
+
+    if (!restaurantEmail) {
+      throw new Error("RESTAURANT_EMAIL must be set in environment variables");
+    }
+
+    // Debug: Check password length (app passwords are typically 16 characters)
+    const passLength = emailPass.length;
+    if (passLength !== 16) {
+      console.warn(
+        `⚠️  Warning: EMAIL_PASS length is ${passLength} characters. Gmail App Passwords are typically 16 characters.`
+      );
+    }
+
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
+        user: emailUser,
+        pass: emailPass,
       },
+      // Add connection timeout and retry options
+      connectionTimeout: 10000,
+      greetingTimeout: 10000,
+      socketTimeout: 10000,
     });
+
+    // Verify transporter configuration
+    await transporter.verify();
+    console.log("Email transporter verified successfully");
 
     const bookingDate = new Date(booking.bookingDate).toLocaleDateString(
       "en-IN",
@@ -85,8 +116,8 @@ const sendBookingConfirmation = async (booking) => {
 
     // Send email to restaurant
     const restaurantMailOptions = {
-      from: process.env.EMAIL_USER,
-      to: process.env.RESTAURANT_EMAIL,
+      from: emailUser,
+      to: restaurantEmail,
       subject: `New Booking - ${bookingDate} at ${booking.bookingTime}`,
       html: restaurantEmailHtml,
     };
@@ -99,7 +130,7 @@ const sendBookingConfirmation = async (booking) => {
     // Send email to customer if email is provided
     if (booking.customerEmail && booking.customerEmail.trim() !== "") {
       const customerMailOptions = {
-        from: process.env.EMAIL_USER,
+        from: emailUser,
         to: booking.customerEmail,
         subject: `Booking Confirmation - ${bookingDate} at ${booking.bookingTime}`,
         html: customerEmailHtml,
@@ -115,8 +146,33 @@ const sendBookingConfirmation = async (booking) => {
       );
     }
   } catch (error) {
-    // Log error but don't throw - booking should succeed even if email fails
+    // Log detailed error but don't throw - booking should succeed even if email fails
     console.error("Email sending failed:", error.message);
+
+    // Provide helpful error messages for common issues
+    if (
+      error.message.includes("Application-specific password required") ||
+      error.message.includes("Invalid login") ||
+      error.code === "EAUTH"
+    ) {
+      console.error("\n⚠️  Gmail Authentication Error:");
+      console.error("   Gmail requires an App Password when 2FA is enabled.");
+      console.error("   Steps to fix:");
+      console.error("   1. Go to: https://myaccount.google.com/apppasswords");
+      console.error("   2. Generate an App Password for 'Mail'");
+      console.error(
+        "   3. Update EMAIL_PASS in your .env file with the 16-character app password"
+      );
+      console.error("   4. Restart your server\n");
+    } else if (error.message.includes("Email configuration missing")) {
+      console.error("\n⚠️  Email Configuration Error:");
+      console.error(
+        "   Please set EMAIL_USER, EMAIL_PASS, and RESTAURANT_EMAIL in your .env file\n"
+      );
+    } else {
+      console.error("   Full error:", error);
+    }
+
     // Don't throw error - booking creation should still succeed
   }
 };
