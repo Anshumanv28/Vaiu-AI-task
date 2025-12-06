@@ -27,6 +27,9 @@ const checkEmailConfig = async () => {
   }
 
   // Use a timeout wrapper to ensure this never blocks server startup
+  let emailCheckCompleted = false;
+  let timeoutId = null;
+
   const emailCheckPromise = (async () => {
     try {
       const nodemailer = require("nodemailer");
@@ -58,8 +61,12 @@ const checkEmailConfig = async () => {
       });
 
       await transporter.verify();
+      emailCheckCompleted = true;
+      if (timeoutId) clearTimeout(timeoutId); // Cancel timeout if verification succeeded
       console.log("✅ Email service configured and verified");
     } catch (error) {
+      emailCheckCompleted = true;
+      if (timeoutId) clearTimeout(timeoutId); // Cancel timeout if verification failed
       console.warn("\n⚠️  Email service verification failed:");
       if (
         error.message.includes("Application-specific password required") ||
@@ -111,17 +118,23 @@ const checkEmailConfig = async () => {
   })();
 
   // Add a timeout to prevent blocking server startup
-  const timeoutPromise = new Promise((resolve) => {
-    setTimeout(() => {
+  timeoutId = setTimeout(() => {
+    if (!emailCheckCompleted) {
       console.warn(
         "   Email verification taking too long - skipping (non-blocking)\n"
       );
-      resolve();
-    }, 12000); // 12 second max wait
-  });
+    }
+  }, 12000); // 12 second max wait
 
-  // Race between email check and timeout
-  await Promise.race([emailCheckPromise, timeoutPromise]);
+  // Wait for email check, but don't block if it takes too long
+  try {
+    await Promise.race([
+      emailCheckPromise,
+      new Promise((resolve) => setTimeout(resolve, 12000)),
+    ]);
+  } catch (error) {
+    // Already handled in emailCheckPromise
+  }
 };
 
 // Initialize Express app
