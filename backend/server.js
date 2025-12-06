@@ -9,7 +9,7 @@ const bookingsRoutes = require("./routes/bookings");
 const weatherRoutes = require("./routes/weather");
 const livekitRoutes = require("./routes/livekit");
 
-// Email configuration check (non-blocking)
+// Email configuration check (non-blocking with timeout)
 const checkEmailConfig = async () => {
   if (
     !process.env.EMAIL_USER ||
@@ -26,74 +26,102 @@ const checkEmailConfig = async () => {
     return;
   }
 
-  try {
-    const nodemailer = require("nodemailer");
+  // Use a timeout wrapper to ensure this never blocks server startup
+  const emailCheckPromise = (async () => {
+    try {
+      const nodemailer = require("nodemailer");
 
-    // Clean and validate env variables
-    const emailUser = process.env.EMAIL_USER?.trim();
-    const emailPass = process.env.EMAIL_PASS?.trim();
+      // Clean and validate env variables
+      const emailUser = process.env.EMAIL_USER?.trim();
+      const emailPass = process.env.EMAIL_PASS?.trim();
 
-    if (!emailUser || !emailPass) {
-      throw new Error("EMAIL_USER or EMAIL_PASS is empty after trimming");
-    }
-
-    // Check password length
-    if (emailPass.length !== 16) {
-      console.warn(
-        `   ⚠️  EMAIL_PASS length is ${emailPass.length} characters (expected 16 for Gmail App Password)`
-      );
-    }
-
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: emailUser,
-        pass: emailPass,
-      },
-      connectionTimeout: 5000,
-      greetingTimeout: 5000,
-    });
-
-    await transporter.verify();
-    console.log("✅ Email service configured and verified");
-  } catch (error) {
-    console.warn("\n⚠️  Email service verification failed:");
-    if (
-      error.message.includes("Application-specific password required") ||
-      error.message.includes("Invalid login") ||
-      error.code === "EAUTH"
-    ) {
-      console.warn("   Gmail requires an App Password when 2FA is enabled.");
-      console.warn(
-        "   Generate one at: https://myaccount.google.com/apppasswords"
-      );
-      console.warn(
-        "   Update EMAIL_PASS in your .env file with the 16-character app password"
-      );
-      console.warn("   Make sure:");
-      console.warn("   - 2FA is enabled on your Google account");
-      console.warn(
-        "   - You generated an App Password (not your regular password)"
-      );
-      console.warn("   - The password has no spaces or quotes in .env file");
-      console.warn(
-        `   - Current EMAIL_USER: ${process.env.EMAIL_USER || "NOT SET"}`
-      );
-      console.warn(
-        `   - EMAIL_PASS length: ${
-          process.env.EMAIL_PASS?.length || 0
-        } characters`
-      );
-    } else {
-      console.warn("   Error:", error.message);
-      if (error.response) {
-        console.warn("   Response:", error.response);
+      if (!emailUser || !emailPass) {
+        throw new Error("EMAIL_USER or EMAIL_PASS is empty after trimming");
       }
+
+      // Check password length
+      if (emailPass.length !== 16) {
+        console.warn(
+          `   ⚠️  EMAIL_PASS length is ${emailPass.length} characters (expected 16 for Gmail App Password)`
+        );
+      }
+
+      const transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          user: emailUser,
+          pass: emailPass,
+        },
+        connectionTimeout: 10000, // Increased timeout for deployment
+        greetingTimeout: 10000,
+        socketTimeout: 10000,
+      });
+
+      await transporter.verify();
+      console.log("✅ Email service configured and verified");
+    } catch (error) {
+      console.warn("\n⚠️  Email service verification failed:");
+      if (
+        error.message.includes("Application-specific password required") ||
+        error.message.includes("Invalid login") ||
+        error.code === "EAUTH"
+      ) {
+        console.warn("   Gmail requires an App Password when 2FA is enabled.");
+        console.warn(
+          "   Generate one at: https://myaccount.google.com/apppasswords"
+        );
+        console.warn(
+          "   Update EMAIL_PASS in your .env file with the 16-character app password"
+        );
+        console.warn("   Make sure:");
+        console.warn("   - 2FA is enabled on your Google account");
+        console.warn(
+          "   - You generated an App Password (not your regular password)"
+        );
+        console.warn("   - The password has no spaces or quotes in .env file");
+        console.warn(
+          `   - Current EMAIL_USER: ${process.env.EMAIL_USER || "NOT SET"}`
+        );
+        console.warn(
+          `   - EMAIL_PASS length: ${
+            process.env.EMAIL_PASS?.length || 0
+          } characters`
+        );
+      } else if (
+        error.message.includes("timeout") ||
+        error.message.includes("Timeout")
+      ) {
+        console.warn(
+          "   Connection timeout - email service may be slow or unreachable."
+        );
+        console.warn("   This is non-critical - server will continue running.");
+        console.warn(
+          "   Email verification will be attempted when sending emails."
+        );
+      } else {
+        console.warn("   Error:", error.message);
+        if (error.response) {
+          console.warn("   Response:", error.response);
+        }
+      }
+      console.warn(
+        "   Bookings will still be created, but confirmation emails will not be sent\n"
+      );
     }
-    console.warn(
-      "   Bookings will still be created, but confirmation emails will not be sent\n"
-    );
-  }
+  })();
+
+  // Add a timeout to prevent blocking server startup
+  const timeoutPromise = new Promise((resolve) => {
+    setTimeout(() => {
+      console.warn(
+        "   Email verification taking too long - skipping (non-blocking)\n"
+      );
+      resolve();
+    }, 12000); // 12 second max wait
+  });
+
+  // Race between email check and timeout
+  await Promise.race([emailCheckPromise, timeoutPromise]);
 };
 
 // Initialize Express app
