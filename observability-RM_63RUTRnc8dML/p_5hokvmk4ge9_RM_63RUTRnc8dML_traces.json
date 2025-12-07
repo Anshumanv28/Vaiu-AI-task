@@ -1,0 +1,1376 @@
+{
+  "resourceSpans": [
+    {
+      "resource": {
+        "attributes": [
+          {
+            "key": "telemetry.sdk.language",
+            "value": {
+              "stringValue": "python"
+            }
+          },
+          {
+            "key": "telemetry.sdk.name",
+            "value": {
+              "stringValue": "opentelemetry"
+            }
+          },
+          {
+            "key": "telemetry.sdk.version",
+            "value": {
+              "stringValue": "1.39.0"
+            }
+          },
+          {
+            "key": "service.name",
+            "value": {
+              "stringValue": "livekit-agents"
+            }
+          },
+          {
+            "key": "room_id",
+            "value": {
+              "stringValue": "RM_63RUTRnc8dML"
+            }
+          },
+          {
+            "key": "job_id",
+            "value": {
+              "stringValue": "AJ_UABZM6zyqER2"
+            }
+          }
+        ]
+      },
+      "scopeSpans": [
+        {
+          "scope": {
+            "name": "livekit-agents"
+          },
+          "spans": [
+            {
+              "traceId": "md++frxXP1QV05kA4ctkBQ==",
+              "spanId": "N2/86IiCSpY=",
+              "flags": 256,
+              "name": "agent_session",
+              "kind": "SPAN_KIND_INTERNAL",
+              "startTimeUnixNano": "1765109050533737200",
+              "endTimeUnixNano": "1765109067473237800",
+              "attributes": [
+                {
+                  "key": "room_id",
+                  "value": {
+                    "stringValue": "RM_63RUTRnc8dML"
+                  }
+                },
+                {
+                  "key": "job_id",
+                  "value": {
+                    "stringValue": "AJ_UABZM6zyqER2"
+                  }
+                },
+                {
+                  "key": "lk.agent_label",
+                  "value": {
+                    "stringValue": "restaurant_booking_agent"
+                  }
+                },
+                {
+                  "key": "lk.room_name",
+                  "value": {
+                    "stringValue": "restaurant-booking-1765109035655"
+                  }
+                },
+                {
+                  "key": "lk.job_id",
+                  "value": {
+                    "stringValue": "AJ_UABZM6zyqER2"
+                  }
+                },
+                {
+                  "key": "lk.agent_name",
+                  "value": {
+                    "stringValue": ""
+                  }
+                }
+              ],
+              "status": {}
+            },
+            {
+              "traceId": "md++frxXP1QV05kA4ctkBQ==",
+              "spanId": "6f9miLD1GdI=",
+              "parentSpanId": "N2/86IiCSpY=",
+              "flags": 256,
+              "name": "start_agent_activity",
+              "kind": "SPAN_KIND_INTERNAL",
+              "startTimeUnixNano": "1765109050541573800",
+              "endTimeUnixNano": "1765109050542574500",
+              "attributes": [
+                {
+                  "key": "lk.agent_label",
+                  "value": {
+                    "stringValue": "restaurant_booking_agent"
+                  }
+                },
+                {
+                  "key": "room_id",
+                  "value": {
+                    "stringValue": "RM_63RUTRnc8dML"
+                  }
+                },
+                {
+                  "key": "job_id",
+                  "value": {
+                    "stringValue": "AJ_UABZM6zyqER2"
+                  }
+                }
+              ],
+              "status": {}
+            },
+            {
+              "traceId": "md++frxXP1QV05kA4ctkBQ==",
+              "spanId": "6zfX/Q39VAU=",
+              "parentSpanId": "6f9miLD1GdI=",
+              "flags": 256,
+              "name": "on_enter",
+              "kind": "SPAN_KIND_INTERNAL",
+              "startTimeUnixNano": "1765109050545375800",
+              "endTimeUnixNano": "1765109050545375800",
+              "attributes": [
+                {
+                  "key": "lk.agent_label",
+                  "value": {
+                    "stringValue": "restaurant_booking_agent"
+                  }
+                },
+                {
+                  "key": "room_id",
+                  "value": {
+                    "stringValue": "RM_63RUTRnc8dML"
+                  }
+                },
+                {
+                  "key": "job_id",
+                  "value": {
+                    "stringValue": "AJ_UABZM6zyqER2"
+                  }
+                }
+              ],
+              "status": {}
+            },
+            {
+              "traceId": "02xcVOvLi2dA2n60leVMLA==",
+              "spanId": "h66LEDqBMNE=",
+              "flags": 256,
+              "name": "job_entrypoint",
+              "kind": "SPAN_KIND_INTERNAL",
+              "startTimeUnixNano": "1765109054223512100",
+              "endTimeUnixNano": "1765109055939649300",
+              "attributes": [
+                {
+                  "key": "room_id",
+                  "value": {
+                    "stringValue": "RM_63RUTRnc8dML"
+                  }
+                },
+                {
+                  "key": "job_id",
+                  "value": {
+                    "stringValue": "AJ_UABZM6zyqER2"
+                  }
+                },
+                {
+                  "key": "lk.job_id",
+                  "value": {
+                    "stringValue": "AJ_J5pKtRB7HAoo"
+                  }
+                },
+                {
+                  "key": "lk.agent_name",
+                  "value": {
+                    "stringValue": ""
+                  }
+                },
+                {
+                  "key": "lk.room_name",
+                  "value": {
+                    "stringValue": "restaurant-booking-1765109053582"
+                  }
+                }
+              ],
+              "status": {}
+            },
+            {
+              "traceId": "02xcVOvLi2dA2n60leVMLA==",
+              "spanId": "IHRGFiUgQns=",
+              "parentSpanId": "lI9XtegR6Wc=",
+              "flags": 256,
+              "name": "start_agent_activity",
+              "kind": "SPAN_KIND_INTERNAL",
+              "startTimeUnixNano": "1765109055932717700",
+              "endTimeUnixNano": "1765109055932717700",
+              "attributes": [
+                {
+                  "key": "lk.agent_label",
+                  "value": {
+                    "stringValue": "restaurant_booking_agent"
+                  }
+                },
+                {
+                  "key": "room_id",
+                  "value": {
+                    "stringValue": "RM_UNCZE79L4Foj"
+                  }
+                },
+                {
+                  "key": "job_id",
+                  "value": {
+                    "stringValue": "AJ_J5pKtRB7HAoo"
+                  }
+                }
+              ],
+              "status": {}
+            },
+            {
+              "traceId": "02xcVOvLi2dA2n60leVMLA==",
+              "spanId": "BDrhMila0ZY=",
+              "parentSpanId": "IHRGFiUgQns=",
+              "flags": 256,
+              "name": "on_enter",
+              "kind": "SPAN_KIND_INTERNAL",
+              "startTimeUnixNano": "1765109055933718300",
+              "endTimeUnixNano": "1765109055933718300",
+              "attributes": [
+                {
+                  "key": "lk.agent_label",
+                  "value": {
+                    "stringValue": "restaurant_booking_agent"
+                  }
+                },
+                {
+                  "key": "room_id",
+                  "value": {
+                    "stringValue": "RM_UNCZE79L4Foj"
+                  }
+                },
+                {
+                  "key": "job_id",
+                  "value": {
+                    "stringValue": "AJ_J5pKtRB7HAoo"
+                  }
+                }
+              ],
+              "status": {}
+            },
+            {
+              "traceId": "02xcVOvLi2dA2n60leVMLA==",
+              "spanId": "Woj4S5YscKE=",
+              "parentSpanId": "kEBfN2CeKuQ=",
+              "flags": 256,
+              "name": "user_speaking",
+              "kind": "SPAN_KIND_INTERNAL",
+              "startTimeUnixNano": "1765109058939283200",
+              "endTimeUnixNano": "1765109059689461300",
+              "attributes": [
+                {
+                  "key": "room_id",
+                  "value": {
+                    "stringValue": "RM_UNCZE79L4Foj"
+                  }
+                },
+                {
+                  "key": "job_id",
+                  "value": {
+                    "stringValue": "AJ_J5pKtRB7HAoo"
+                  }
+                },
+                {
+                  "key": "lk.participant_id",
+                  "value": {
+                    "stringValue": "PA_qoRWzsaicFDF"
+                  }
+                },
+                {
+                  "key": "lk.participant_identity",
+                  "value": {
+                    "stringValue": "user-1765109053582"
+                  }
+                },
+                {
+                  "key": "lk.participant_kind",
+                  "value": {
+                    "stringValue": "PARTICIPANT_KIND_STANDARD"
+                  }
+                }
+              ],
+              "status": {}
+            },
+            {
+              "traceId": "02xcVOvLi2dA2n60leVMLA==",
+              "spanId": "kEBfN2CeKuQ=",
+              "parentSpanId": "lI9XtegR6Wc=",
+              "flags": 256,
+              "name": "user_turn",
+              "kind": "SPAN_KIND_INTERNAL",
+              "startTimeUnixNano": "1765109058939283200",
+              "endTimeUnixNano": "1765109060859322200",
+              "attributes": [
+                {
+                  "key": "room_id",
+                  "value": {
+                    "stringValue": "RM_UNCZE79L4Foj"
+                  }
+                },
+                {
+                  "key": "job_id",
+                  "value": {
+                    "stringValue": "AJ_J5pKtRB7HAoo"
+                  }
+                },
+                {
+                  "key": "lk.participant_id",
+                  "value": {
+                    "stringValue": "PA_qoRWzsaicFDF"
+                  }
+                },
+                {
+                  "key": "lk.participant_identity",
+                  "value": {
+                    "stringValue": "user-1765109053582"
+                  }
+                },
+                {
+                  "key": "lk.participant_kind",
+                  "value": {
+                    "stringValue": "PARTICIPANT_KIND_STANDARD"
+                  }
+                },
+                {
+                  "key": "lk.user_transcript",
+                  "value": {
+                    "stringValue": "Hi."
+                  }
+                },
+                {
+                  "key": "lk.transcript_confidence",
+                  "value": {
+                    "doubleValue": 0
+                  }
+                },
+                {
+                  "key": "lk.transcription_delay",
+                  "value": {
+                    "doubleValue": 1.6704795360565186
+                  }
+                },
+                {
+                  "key": "lk.end_of_turn_delay",
+                  "value": {
+                    "doubleValue": 1.6704795360565186
+                  }
+                }
+              ],
+              "status": {}
+            },
+            {
+              "traceId": "02xcVOvLi2dA2n60leVMLA==",
+              "spanId": "EZAP8AKopvg=",
+              "parentSpanId": "lI9XtegR6Wc=",
+              "flags": 256,
+              "name": "agent_turn",
+              "kind": "SPAN_KIND_INTERNAL",
+              "startTimeUnixNano": "1765109060861321900",
+              "endTimeUnixNano": "1765109067715471000",
+              "attributes": [
+                {
+                  "key": "room_id",
+                  "value": {
+                    "stringValue": "RM_UNCZE79L4Foj"
+                  }
+                },
+                {
+                  "key": "job_id",
+                  "value": {
+                    "stringValue": "AJ_J5pKtRB7HAoo"
+                  }
+                },
+                {
+                  "key": "lk.generation_id",
+                  "value": {
+                    "stringValue": "speech_b0571a1d6b79_1"
+                  }
+                },
+                {
+                  "key": "lk.speech_id",
+                  "value": {
+                    "stringValue": "speech_b0571a1d6b79"
+                  }
+                },
+                {
+                  "key": "lk.user_input",
+                  "value": {
+                    "stringValue": "Hi."
+                  }
+                },
+                {
+                  "key": "lk.participant_id",
+                  "value": {
+                    "stringValue": "PA_9aLQ7Fvhduc5"
+                  }
+                },
+                {
+                  "key": "lk.participant_identity",
+                  "value": {
+                    "stringValue": "agent-AJ_J5pKtRB7HAoo"
+                  }
+                },
+                {
+                  "key": "lk.participant_kind",
+                  "value": {
+                    "stringValue": "PARTICIPANT_KIND_AGENT"
+                  }
+                },
+                {
+                  "key": "lk.interrupted",
+                  "value": {
+                    "boolValue": false
+                  }
+                },
+                {
+                  "key": "lk.response.text",
+                  "value": {
+                    "stringValue": "Hello! How can I help you today? Are you looking to make a reservation at a restaurant?"
+                  }
+                }
+              ],
+              "status": {}
+            },
+            {
+              "traceId": "02xcVOvLi2dA2n60leVMLA==",
+              "spanId": "jYB68zHnhzU=",
+              "parentSpanId": "EZAP8AKopvg=",
+              "flags": 256,
+              "name": "llm_node",
+              "kind": "SPAN_KIND_INTERNAL",
+              "startTimeUnixNano": "1765109060862320400",
+              "endTimeUnixNano": "1765109062071084500",
+              "attributes": [
+                {
+                  "key": "room_id",
+                  "value": {
+                    "stringValue": "RM_UNCZE79L4Foj"
+                  }
+                },
+                {
+                  "key": "job_id",
+                  "value": {
+                    "stringValue": "AJ_J5pKtRB7HAoo"
+                  }
+                },
+                {
+                  "key": "lk.chat_ctx",
+                  "value": {
+                    "kvlistValue": {
+                      "values": [
+                        {
+                          "key": "items",
+                          "value": {
+                            "arrayValue": {
+                              "values": [
+                                {
+                                  "kvlistValue": {
+                                    "values": [
+                                      {
+                                        "key": "id",
+                                        "value": {
+                                          "stringValue": "lk.agent_task.instructions"
+                                        }
+                                      },
+                                      {
+                                        "key": "type",
+                                        "value": {
+                                          "stringValue": "message"
+                                        }
+                                      },
+                                      {
+                                        "key": "role",
+                                        "value": {
+                                          "stringValue": "system"
+                                        }
+                                      },
+                                      {
+                                        "key": "content",
+                                        "value": {
+                                          "arrayValue": {
+                                            "values": [
+                                              {
+                                                "stringValue": "You are a friendly and professional restaurant booking assistant. Your role is to help customers book tables through natural, conversational dialogue.\n\n## Your Responsibilities\n\n1. **Greet customers warmly** and offer to help with their booking\n2. **Collect booking information** naturally through conversation:\n   - Number of guests\n   - Preferred date (accept natural language like \"tomorrow\", \"next Friday\", \"December 10th\")\n   - Preferred time (accept formats like \"5 PM\", \"17:00\", \"evening\")\n   - Cuisine preference (Italian, Chinese, Indian, Mexican, Japanese, Thai, French, or other)\n   - Special requests or dietary restrictions\n   - Customer name (optional - ask politely)\n   - Contact number (optional - ask politely)\n   - Email address (optional - only if user wants confirmation email)\n3. **Weather information**: You can mention weather-based suggestions, but note that weather checking tools are not currently available. You can still suggest indoor/outdoor seating based on general knowledge or ask the customer for their preference.\n4. **Availability checking**: You cannot check availability automatically. Proceed with booking creation and handle any conflicts if they arise.\n5. **Create the booking** once all details are confirmed (note: booking creation tools are not currently available - inform the customer that you'll note their request and they should contact the restaurant directly)\n6. **Email confirmation**: Email sending tools are not currently available. If the customer wants confirmation, let them know they should contact the restaurant directly.\n\n## Conversation Flow\n\n1. **Greeting**: \"Hello! How can I help you today?\" or similar warm greeting\n2. **Detect booking intent**: If user mentions booking, table, reservation, etc., proceed with booking flow\n3. **Collect information** in a natural order:\n   - Start with number of guests\n   - Then ask for date\n   - After getting date, suggest seating (indoor/outdoor) based on general knowledge or ask for preference\n   - Ask for time\n   - Ask for cuisine preference\n   - Ask for special requests\n   - Ask for customer name (optional)\n   - Ask for contact number (optional)\n   - Ask if they want email confirmation (optional)\n4. **Confirm details**: Summarize all collected information and ask for confirmation\n5. **Inform about booking**: Once confirmed, inform the customer that you've collected all their booking details. Let them know that to complete the actual booking, they should contact the restaurant directly with the information you've gathered, or use the restaurant's booking system.\n6. **Thank the customer**: Thank them for their time and provide a summary of the details you've collected\n\n## Important Guidelines\n\n- **Be conversational and natural** - don't sound robotic or scripted\n- **Handle variations** in how users express information (e.g., \"2 people\" vs \"for two\", \"tomorrow\" vs \"next day\")\n- **Ask one question at a time** to avoid overwhelming the customer\n- **Be flexible** - if a user provides multiple pieces of information at once, acknowledge all of it\n- **Handle corrections gracefully** - if a user wants to change something, allow it\n- **Weather-based suggestions**: \n  - If sunny and warm (>20°C): Suggest outdoor seating\n  - If rainy/stormy or cold (<15°C): Suggest indoor seating\n  - Otherwise: Ask for their preference\n- **Email is optional**: Only collect if user explicitly wants it\n- **Customer name defaults to \"Guest\"** if not provided\n- **Contact number is optional** but helpful for the restaurant\n\n## Important Limitations\n\n**Tools are NOT available**: You do not have access to weather checking, availability checking, booking creation, or email sending tools. You should:\n- Inform customers that you're a conversational assistant and can help them plan their booking\n- Collect all booking information through conversation\n- Let customers know that to complete the actual booking, they should contact the restaurant directly or use the restaurant's booking system\n- Be helpful and friendly, but transparent about these limitations\n\n## Error Handling\n\n- If a customer asks about weather: Politely explain that you don't have access to real-time weather data, but you can help them decide based on their preferences\n- If a customer wants to complete a booking: Collect all the information, confirm the details, and then inform them that to finalize the booking, they should contact the restaurant directly with the details you've collected\n- Always be helpful and transparent about what you can and cannot do\n\n## Tone and Style\n\n- Warm, friendly, and professional\n- Use natural language, not robotic scripts\n- Show enthusiasm about helping them\n- Be patient and understanding\n- Thank customers for their time\n\nRemember: You are having a natural conversation, not following a rigid script. Adapt to the customer's communication style and make the experience pleasant and efficient."
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "key": "interrupted",
+                                        "value": {
+                                          "boolValue": false
+                                        }
+                                      },
+                                      {
+                                        "key": "created_at",
+                                        "value": {
+                                          "doubleValue": 1765109055.9327178
+                                        }
+                                      }
+                                    ]
+                                  }
+                                },
+                                {
+                                  "kvlistValue": {
+                                    "values": [
+                                      {
+                                        "key": "id",
+                                        "value": {
+                                          "stringValue": "item_61f5d69a18ac"
+                                        }
+                                      },
+                                      {
+                                        "key": "type",
+                                        "value": {
+                                          "stringValue": "message"
+                                        }
+                                      },
+                                      {
+                                        "key": "role",
+                                        "value": {
+                                          "stringValue": "user"
+                                        }
+                                      },
+                                      {
+                                        "key": "content",
+                                        "value": {
+                                          "arrayValue": {
+                                            "values": [
+                                              {
+                                                "stringValue": "Hi."
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "key": "interrupted",
+                                        "value": {
+                                          "boolValue": false
+                                        }
+                                      },
+                                      {
+                                        "key": "transcript_confidence",
+                                        "value": {
+                                          "doubleValue": 0
+                                        }
+                                      },
+                                      {
+                                        "key": "metrics",
+                                        "value": {
+                                          "kvlistValue": {
+                                            "values": [
+                                              {
+                                                "key": "started_speaking_at",
+                                                "value": {
+                                                  "doubleValue": 1765109058.9382877
+                                                }
+                                              },
+                                              {
+                                                "key": "stopped_speaking_at",
+                                                "value": {
+                                                  "doubleValue": 1765109059.1888425
+                                                }
+                                              },
+                                              {
+                                                "key": "transcription_delay",
+                                                "value": {
+                                                  "doubleValue": 1.6704795360565186
+                                                }
+                                              },
+                                              {
+                                                "key": "end_of_turn_delay",
+                                                "value": {
+                                                  "doubleValue": 1.6704795360565186
+                                                }
+                                              },
+                                              {
+                                                "key": "on_user_turn_completed_delay",
+                                                "value": {
+                                                  "doubleValue": 0.0013728000049013644
+                                                }
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "key": "created_at",
+                                        "value": {
+                                          "doubleValue": 1765109060.859322
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "key": "lk.response.text",
+                  "value": {
+                    "stringValue": "Hello! How can I help you today? Are you looking to make a reservation at a restaurant?"
+                  }
+                }
+              ],
+              "status": {}
+            },
+            {
+              "traceId": "02xcVOvLi2dA2n60leVMLA==",
+              "spanId": "LwUaTw9p/1k=",
+              "parentSpanId": "jYB68zHnhzU=",
+              "flags": 256,
+              "name": "llm_request",
+              "kind": "SPAN_KIND_INTERNAL",
+              "startTimeUnixNano": "1765109060862320400",
+              "endTimeUnixNano": "1765109062071084500",
+              "attributes": [
+                {
+                  "key": "room_id",
+                  "value": {
+                    "stringValue": "RM_UNCZE79L4Foj"
+                  }
+                },
+                {
+                  "key": "job_id",
+                  "value": {
+                    "stringValue": "AJ_J5pKtRB7HAoo"
+                  }
+                },
+                {
+                  "key": "gen_ai.request.model",
+                  "value": {
+                    "stringValue": "gpt-4o-mini"
+                  }
+                },
+                {
+                  "key": "lk.llm_metrics",
+                  "value": {
+                    "kvlistValue": {
+                      "values": [
+                        {
+                          "key": "type",
+                          "value": {
+                            "stringValue": "llm_metrics"
+                          }
+                        },
+                        {
+                          "key": "label",
+                          "value": {
+                            "stringValue": "livekit.plugins.openai.llm.LLM"
+                          }
+                        },
+                        {
+                          "key": "request_id",
+                          "value": {
+                            "stringValue": "chatcmpl-Ck7myAtHK76Ppji8Z3jkOCVV9AtFb"
+                          }
+                        },
+                        {
+                          "key": "timestamp",
+                          "value": {
+                            "doubleValue": 1765109062.0705807
+                          }
+                        },
+                        {
+                          "key": "duration",
+                          "value": {
+                            "doubleValue": 1.2076549000048544
+                          }
+                        },
+                        {
+                          "key": "ttft",
+                          "value": {
+                            "doubleValue": 0.7305306000052951
+                          }
+                        },
+                        {
+                          "key": "cancelled",
+                          "value": {
+                            "boolValue": false
+                          }
+                        },
+                        {
+                          "key": "completion_tokens",
+                          "value": {
+                            "doubleValue": 20
+                          }
+                        },
+                        {
+                          "key": "prompt_tokens",
+                          "value": {
+                            "doubleValue": 1016
+                          }
+                        },
+                        {
+                          "key": "prompt_cached_tokens",
+                          "value": {
+                            "doubleValue": 0
+                          }
+                        },
+                        {
+                          "key": "total_tokens",
+                          "value": {
+                            "doubleValue": 1036
+                          }
+                        },
+                        {
+                          "key": "tokens_per_second",
+                          "value": {
+                            "doubleValue": 16.561022523834918
+                          }
+                        },
+                        {
+                          "key": "metadata",
+                          "value": {
+                            "kvlistValue": {
+                              "values": [
+                                {
+                                  "key": "model_name",
+                                  "value": {
+                                    "stringValue": "gpt-4o-mini"
+                                  }
+                                },
+                                {
+                                  "key": "model_provider",
+                                  "value": {
+                                    "stringValue": "api.openai.com"
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "key": "gen_ai.usage.input_tokens",
+                  "value": {
+                    "intValue": "1016"
+                  }
+                },
+                {
+                  "key": "gen_ai.usage.output_tokens",
+                  "value": {
+                    "intValue": "20"
+                  }
+                },
+                {
+                  "key": "langfuse.observation.completion_start_time",
+                  "value": {
+                    "stringValue": "\"2025-12-07T12:04:21.593179+00:00\""
+                  }
+                }
+              ],
+              "events": [
+                {
+                  "timeUnixNano": "1765109062070580800",
+                  "name": "gen_ai.choice",
+                  "attributes": [
+                    {
+                      "key": "role",
+                      "value": {
+                        "stringValue": "assistant"
+                      }
+                    },
+                    {
+                      "key": "content",
+                      "value": {
+                        "stringValue": "Hello! How can I help you today? Are you looking to make a reservation at a restaurant?"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "status": {}
+            },
+            {
+              "traceId": "02xcVOvLi2dA2n60leVMLA==",
+              "spanId": "cB4Ji1hp9J0=",
+              "parentSpanId": "LwUaTw9p/1k=",
+              "flags": 256,
+              "name": "llm_request_run",
+              "kind": "SPAN_KIND_INTERNAL",
+              "startTimeUnixNano": "1765109060862320400",
+              "endTimeUnixNano": "1765109062069573800",
+              "attributes": [
+                {
+                  "key": "room_id",
+                  "value": {
+                    "stringValue": "RM_UNCZE79L4Foj"
+                  }
+                },
+                {
+                  "key": "job_id",
+                  "value": {
+                    "stringValue": "AJ_J5pKtRB7HAoo"
+                  }
+                },
+                {
+                  "key": "lk.retry_count",
+                  "value": {
+                    "intValue": "0"
+                  }
+                }
+              ],
+              "status": {}
+            },
+            {
+              "traceId": "02xcVOvLi2dA2n60leVMLA==",
+              "spanId": "mWCMqeg3im8=",
+              "parentSpanId": "EZAP8AKopvg=",
+              "flags": 256,
+              "name": "tts_node",
+              "kind": "SPAN_KIND_INTERNAL",
+              "startTimeUnixNano": "1765109060865262600",
+              "endTimeUnixNano": "1765109064547909400",
+              "attributes": [
+                {
+                  "key": "room_id",
+                  "value": {
+                    "stringValue": "RM_UNCZE79L4Foj"
+                  }
+                },
+                {
+                  "key": "job_id",
+                  "value": {
+                    "stringValue": "AJ_J5pKtRB7HAoo"
+                  }
+                }
+              ],
+              "status": {}
+            },
+            {
+              "traceId": "02xcVOvLi2dA2n60leVMLA==",
+              "spanId": "GTIof3GgeHo=",
+              "parentSpanId": "YiFunAPq+fU=",
+              "flags": 256,
+              "name": "tts_request_run",
+              "kind": "SPAN_KIND_INTERNAL",
+              "startTimeUnixNano": "1765109060865262600",
+              "endTimeUnixNano": "1765109064546899700",
+              "attributes": [
+                {
+                  "key": "room_id",
+                  "value": {
+                    "stringValue": "RM_UNCZE79L4Foj"
+                  }
+                },
+                {
+                  "key": "job_id",
+                  "value": {
+                    "stringValue": "AJ_J5pKtRB7HAoo"
+                  }
+                },
+                {
+                  "key": "lk.retry_count",
+                  "value": {
+                    "intValue": "0"
+                  }
+                }
+              ],
+              "status": {}
+            },
+            {
+              "traceId": "02xcVOvLi2dA2n60leVMLA==",
+              "spanId": "YiFunAPq+fU=",
+              "parentSpanId": "mWCMqeg3im8=",
+              "flags": 256,
+              "name": "tts_stream_adapter",
+              "kind": "SPAN_KIND_INTERNAL",
+              "startTimeUnixNano": "1765109060865262600",
+              "endTimeUnixNano": "1765109064547909400",
+              "attributes": [
+                {
+                  "key": "room_id",
+                  "value": {
+                    "stringValue": "RM_UNCZE79L4Foj"
+                  }
+                },
+                {
+                  "key": "job_id",
+                  "value": {
+                    "stringValue": "AJ_J5pKtRB7HAoo"
+                  }
+                },
+                {
+                  "key": "lk.tts.streaming",
+                  "value": {
+                    "boolValue": true
+                  }
+                },
+                {
+                  "key": "lk.tts.label",
+                  "value": {
+                    "stringValue": "livekit.agents.tts.stream_adapter.StreamAdapter"
+                  }
+                },
+                {
+                  "key": "lk.input_text",
+                  "value": {
+                    "stringValue": "Hello! How can I help you today? Are you looking to make a reservation at a restaurant?"
+                  }
+                }
+              ],
+              "status": {}
+            },
+            {
+              "traceId": "02xcVOvLi2dA2n60leVMLA==",
+              "spanId": "G95A7/rQ5YQ=",
+              "parentSpanId": "J/iASNtFjfA=",
+              "flags": 256,
+              "name": "tts_request_run",
+              "kind": "SPAN_KIND_INTERNAL",
+              "startTimeUnixNano": "1765109061878127900",
+              "endTimeUnixNano": "1765109063526518300",
+              "attributes": [
+                {
+                  "key": "room_id",
+                  "value": {
+                    "stringValue": "RM_UNCZE79L4Foj"
+                  }
+                },
+                {
+                  "key": "job_id",
+                  "value": {
+                    "stringValue": "AJ_J5pKtRB7HAoo"
+                  }
+                },
+                {
+                  "key": "lk.retry_count",
+                  "value": {
+                    "intValue": "0"
+                  }
+                }
+              ],
+              "status": {}
+            },
+            {
+              "traceId": "02xcVOvLi2dA2n60leVMLA==",
+              "spanId": "J/iASNtFjfA=",
+              "parentSpanId": "GTIof3GgeHo=",
+              "flags": 256,
+              "name": "tts_request",
+              "kind": "SPAN_KIND_INTERNAL",
+              "startTimeUnixNano": "1765109061878127900",
+              "endTimeUnixNano": "1765109063555667100",
+              "attributes": [
+                {
+                  "key": "room_id",
+                  "value": {
+                    "stringValue": "RM_UNCZE79L4Foj"
+                  }
+                },
+                {
+                  "key": "job_id",
+                  "value": {
+                    "stringValue": "AJ_J5pKtRB7HAoo"
+                  }
+                },
+                {
+                  "key": "lk.tts.streaming",
+                  "value": {
+                    "boolValue": false
+                  }
+                },
+                {
+                  "key": "lk.tts.label",
+                  "value": {
+                    "stringValue": "livekit.plugins.openai.tts.TTS"
+                  }
+                },
+                {
+                  "key": "lk.input_text",
+                  "value": {
+                    "stringValue": "Hello! How can I help you today?"
+                  }
+                },
+                {
+                  "key": "lk.tts_metrics",
+                  "value": {
+                    "kvlistValue": {
+                      "values": [
+                        {
+                          "key": "type",
+                          "value": {
+                            "stringValue": "tts_metrics"
+                          }
+                        },
+                        {
+                          "key": "label",
+                          "value": {
+                            "stringValue": "livekit.plugins.openai.tts.TTS"
+                          }
+                        },
+                        {
+                          "key": "request_id",
+                          "value": {
+                            "stringValue": "req_edcf7e90c0fd44bcb89bf6ad4f67dd25"
+                          }
+                        },
+                        {
+                          "key": "timestamp",
+                          "value": {
+                            "doubleValue": 1765109063.5551617
+                          }
+                        },
+                        {
+                          "key": "ttfb",
+                          "value": {
+                            "doubleValue": 1.384084300007089
+                          }
+                        },
+                        {
+                          "key": "duration",
+                          "value": {
+                            "doubleValue": 1.6771201999945333
+                          }
+                        },
+                        {
+                          "key": "audio_duration",
+                          "value": {
+                            "doubleValue": 2.1459999999999995
+                          }
+                        },
+                        {
+                          "key": "cancelled",
+                          "value": {
+                            "boolValue": false
+                          }
+                        },
+                        {
+                          "key": "characters_count",
+                          "value": {
+                            "doubleValue": 32
+                          }
+                        },
+                        {
+                          "key": "streamed",
+                          "value": {
+                            "boolValue": false
+                          }
+                        },
+                        {
+                          "key": "metadata",
+                          "value": {
+                            "kvlistValue": {
+                              "values": [
+                                {
+                                  "key": "model_name",
+                                  "value": {
+                                    "stringValue": "gpt-4o-mini-tts"
+                                  }
+                                },
+                                {
+                                  "key": "model_provider",
+                                  "value": {
+                                    "stringValue": "api.openai.com"
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              ],
+              "status": {}
+            },
+            {
+              "traceId": "02xcVOvLi2dA2n60leVMLA==",
+              "spanId": "IDUbZRfwomI=",
+              "parentSpanId": "EZAP8AKopvg=",
+              "flags": 256,
+              "name": "agent_speaking",
+              "kind": "SPAN_KIND_INTERNAL",
+              "startTimeUnixNano": "1765109063278170800",
+              "endTimeUnixNano": "1765109067715471000",
+              "attributes": [
+                {
+                  "key": "room_id",
+                  "value": {
+                    "stringValue": "RM_UNCZE79L4Foj"
+                  }
+                },
+                {
+                  "key": "job_id",
+                  "value": {
+                    "stringValue": "AJ_J5pKtRB7HAoo"
+                  }
+                },
+                {
+                  "key": "lk.participant_id",
+                  "value": {
+                    "stringValue": "PA_9aLQ7Fvhduc5"
+                  }
+                },
+                {
+                  "key": "lk.participant_identity",
+                  "value": {
+                    "stringValue": "agent-AJ_J5pKtRB7HAoo"
+                  }
+                },
+                {
+                  "key": "lk.participant_kind",
+                  "value": {
+                    "stringValue": "PARTICIPANT_KIND_AGENT"
+                  }
+                }
+              ],
+              "status": {}
+            },
+            {
+              "traceId": "02xcVOvLi2dA2n60leVMLA==",
+              "spanId": "hkeAmdCH7RI=",
+              "parentSpanId": "HZs7h5qC+hU=",
+              "flags": 256,
+              "name": "tts_request_run",
+              "kind": "SPAN_KIND_INTERNAL",
+              "startTimeUnixNano": "1765109063555667100",
+              "endTimeUnixNano": "1765109064479738900",
+              "attributes": [
+                {
+                  "key": "room_id",
+                  "value": {
+                    "stringValue": "RM_UNCZE79L4Foj"
+                  }
+                },
+                {
+                  "key": "job_id",
+                  "value": {
+                    "stringValue": "AJ_J5pKtRB7HAoo"
+                  }
+                },
+                {
+                  "key": "lk.retry_count",
+                  "value": {
+                    "intValue": "0"
+                  }
+                }
+              ],
+              "status": {}
+            },
+            {
+              "traceId": "02xcVOvLi2dA2n60leVMLA==",
+              "spanId": "HZs7h5qC+hU=",
+              "parentSpanId": "GTIof3GgeHo=",
+              "flags": 256,
+              "name": "tts_request",
+              "kind": "SPAN_KIND_INTERNAL",
+              "startTimeUnixNano": "1765109063555667100",
+              "endTimeUnixNano": "1765109064532735100",
+              "attributes": [
+                {
+                  "key": "room_id",
+                  "value": {
+                    "stringValue": "RM_UNCZE79L4Foj"
+                  }
+                },
+                {
+                  "key": "job_id",
+                  "value": {
+                    "stringValue": "AJ_J5pKtRB7HAoo"
+                  }
+                },
+                {
+                  "key": "lk.tts.streaming",
+                  "value": {
+                    "boolValue": false
+                  }
+                },
+                {
+                  "key": "lk.tts.label",
+                  "value": {
+                    "stringValue": "livekit.plugins.openai.tts.TTS"
+                  }
+                },
+                {
+                  "key": "lk.input_text",
+                  "value": {
+                    "stringValue": "Are you looking to make a reservation at a restaurant?"
+                  }
+                },
+                {
+                  "key": "lk.tts_metrics",
+                  "value": {
+                    "kvlistValue": {
+                      "values": [
+                        {
+                          "key": "type",
+                          "value": {
+                            "stringValue": "tts_metrics"
+                          }
+                        },
+                        {
+                          "key": "label",
+                          "value": {
+                            "stringValue": "livekit.plugins.openai.tts.TTS"
+                          }
+                        },
+                        {
+                          "key": "request_id",
+                          "value": {
+                            "stringValue": "req_ba4977d6e238403abdb8dc4dc23edd23"
+                          }
+                        },
+                        {
+                          "key": "timestamp",
+                          "value": {
+                            "doubleValue": 1765109064.531736
+                          }
+                        },
+                        {
+                          "key": "ttfb",
+                          "value": {
+                            "doubleValue": 0.9114483000012115
+                          }
+                        },
+                        {
+                          "key": "duration",
+                          "value": {
+                            "doubleValue": 0.9768680999986827
+                          }
+                        },
+                        {
+                          "key": "audio_duration",
+                          "value": {
+                            "doubleValue": 2.2899999999999996
+                          }
+                        },
+                        {
+                          "key": "cancelled",
+                          "value": {
+                            "boolValue": false
+                          }
+                        },
+                        {
+                          "key": "characters_count",
+                          "value": {
+                            "doubleValue": 54
+                          }
+                        },
+                        {
+                          "key": "streamed",
+                          "value": {
+                            "boolValue": false
+                          }
+                        },
+                        {
+                          "key": "metadata",
+                          "value": {
+                            "kvlistValue": {
+                              "values": [
+                                {
+                                  "key": "model_name",
+                                  "value": {
+                                    "stringValue": "gpt-4o-mini-tts"
+                                  }
+                                },
+                                {
+                                  "key": "model_provider",
+                                  "value": {
+                                    "stringValue": "api.openai.com"
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              ],
+              "status": {}
+            },
+            {
+              "traceId": "md++frxXP1QV05kA4ctkBQ==",
+              "spanId": "Y84qSdPquDk=",
+              "parentSpanId": "N2/86IiCSpY=",
+              "flags": 256,
+              "name": "drain_agent_activity",
+              "kind": "SPAN_KIND_INTERNAL",
+              "startTimeUnixNano": "1765109067469301600",
+              "endTimeUnixNano": "1765109067469301600",
+              "attributes": [
+                {
+                  "key": "room_id",
+                  "value": {
+                    "stringValue": "RM_UNCZE79L4Foj"
+                  }
+                },
+                {
+                  "key": "job_id",
+                  "value": {
+                    "stringValue": "AJ_J5pKtRB7HAoo"
+                  }
+                },
+                {
+                  "key": "lk.agent_label",
+                  "value": {
+                    "stringValue": "restaurant_booking_agent"
+                  }
+                }
+              ],
+              "status": {}
+            },
+            {
+              "traceId": "md++frxXP1QV05kA4ctkBQ==",
+              "spanId": "j+Cw99I4KTs=",
+              "parentSpanId": "Y84qSdPquDk=",
+              "flags": 256,
+              "name": "on_exit",
+              "kind": "SPAN_KIND_INTERNAL",
+              "startTimeUnixNano": "1765109067469301600",
+              "endTimeUnixNano": "1765109067469301600",
+              "attributes": [
+                {
+                  "key": "lk.agent_label",
+                  "value": {
+                    "stringValue": "restaurant_booking_agent"
+                  }
+                },
+                {
+                  "key": "room_id",
+                  "value": {
+                    "stringValue": "RM_UNCZE79L4Foj"
+                  }
+                },
+                {
+                  "key": "job_id",
+                  "value": {
+                    "stringValue": "AJ_J5pKtRB7HAoo"
+                  }
+                }
+              ],
+              "status": {}
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

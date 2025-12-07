@@ -3,6 +3,7 @@ import { useLiveKit } from "./hooks/useLiveKit";
 import VoiceInterface from "./components/VoiceInterface";
 import Conversation from "./components/Conversation";
 import BookingConfirmation from "./components/BookingConfirmation";
+import CurrentSpeech from "./components/CurrentSpeech";
 import {
   colors,
   shadows,
@@ -21,9 +22,16 @@ function App() {
     transcript,
     isAgentTyping,
     isAgentSpeaking,
+    agentState,
+    agentStateMessage,
+    isUserExpectedToSpeak,
+    options,
+    optionsMessage,
+    currentSpeech,
     connect,
     disconnect,
     sendTextMessage,
+    sendOptionSelection,
   } = useLiveKit();
   const [booking, setBooking] = useState(null);
   const { isMobile, isTablet } = useResponsive();
@@ -303,6 +311,9 @@ function App() {
                 room={room}
                 isConnected={isConnected}
                 isAgentSpeaking={isAgentSpeaking}
+                agentState={agentState}
+                agentStateMessage={agentStateMessage}
+                isUserExpectedToSpeak={isUserExpectedToSpeak}
                 onTranscriptUpdate={(entry) => {
                   // This will be handled by the conversation component
                 }}
@@ -315,13 +326,25 @@ function App() {
                 transcript={transcript}
                 isAgentTyping={isAgentTyping}
                 isAgentSpeaking={isAgentSpeaking}
+                agentState={agentState}
+                agentStateMessage={agentStateMessage}
+                isUserExpectedToSpeak={isUserExpectedToSpeak}
+                options={options}
+                optionsMessage={optionsMessage}
                 onSendMessage={sendTextMessage}
+                onSelectOption={sendOptionSelection}
                 isConnected={isConnected}
               />
               {booking && <BookingConfirmation booking={booking} />}
             </div>
           </div>
         )}
+
+        {/* Current Speech Display */}
+        <CurrentSpeech
+          text={currentSpeech}
+          isVisible={isConnected && currentSpeech}
+        />
       </main>
     </div>
   );

@@ -1,0 +1,724 @@
+{
+  "resourceLogs": [
+    {
+      "resource": {
+        "attributes": [
+          {
+            "key": "telemetry.sdk.language",
+            "value": {
+              "stringValue": "python"
+            }
+          },
+          {
+            "key": "telemetry.sdk.name",
+            "value": {
+              "stringValue": "opentelemetry"
+            }
+          },
+          {
+            "key": "telemetry.sdk.version",
+            "value": {
+              "stringValue": "1.39.0"
+            }
+          },
+          {
+            "key": "service.name",
+            "value": {
+              "stringValue": "unknown_service"
+            }
+          }
+        ]
+      },
+      "scopeLogs": [
+        {
+          "scope": {
+            "name": "livekit.agents"
+          },
+          "logRecords": [
+            {
+              "timeUnixNano": "1765109050534737664",
+              "observedTimeUnixNano": "1765109050537285400",
+              "severityNumber": "SEVERITY_NUMBER_DEBUG",
+              "severityText": "DEBUG",
+              "body": {
+                "stringValue": "input stream attached"
+              },
+              "attributes": [
+                {
+                  "key": "source",
+                  "value": {
+                    "stringValue": "SOURCE_UNKNOWN"
+                  }
+                },
+                {
+                  "key": "accepted_sources",
+                  "value": {
+                    "arrayValue": {
+                      "values": [
+                        {
+                          "stringValue": "SOURCE_MICROPHONE"
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "key": "code.file.path",
+                  "value": {
+                    "stringValue": "C:\\work\\github\\vaiu ai task\\.venv\\Lib\\site-packages\\livekit\\agents\\voice\\room_io\\_input.py"
+                  }
+                },
+                {
+                  "key": "code.function.name",
+                  "value": {
+                    "stringValue": "on_attached"
+                  }
+                },
+                {
+                  "key": "code.line.number",
+                  "value": {
+                    "intValue": "66"
+                  }
+                },
+                {
+                  "key": "room_id",
+                  "value": {
+                    "stringValue": "RM_63RUTRnc8dML"
+                  }
+                },
+                {
+                  "key": "job_id",
+                  "value": {
+                    "stringValue": "AJ_UABZM6zyqER2"
+                  }
+                },
+                {
+                  "key": "logger.name",
+                  "value": {
+                    "stringValue": "livekit.agents"
+                  }
+                }
+              ],
+              "flags": 1,
+              "traceId": "md++frxXP1QV05kA4ctkBQ==",
+              "spanId": "N2/86IiCSpY="
+            },
+            {
+              "timeUnixNano": "1765109050537285376",
+              "observedTimeUnixNano": "1765109050539271500",
+              "severityNumber": "SEVERITY_NUMBER_DEBUG",
+              "severityText": "DEBUG",
+              "body": {
+                "stringValue": "input stream detached"
+              },
+              "attributes": [
+                {
+                  "key": "source",
+                  "value": {
+                    "stringValue": "SOURCE_UNKNOWN"
+                  }
+                },
+                {
+                  "key": "accepted_sources",
+                  "value": {
+                    "arrayValue": {
+                      "values": [
+                        {
+                          "stringValue": "SOURCE_MICROPHONE"
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "key": "code.file.path",
+                  "value": {
+                    "stringValue": "C:\\work\\github\\vaiu ai task\\.venv\\Lib\\site-packages\\livekit\\agents\\voice\\room_io\\_input.py"
+                  }
+                },
+                {
+                  "key": "code.function.name",
+                  "value": {
+                    "stringValue": "on_detached"
+                  }
+                },
+                {
+                  "key": "code.line.number",
+                  "value": {
+                    "intValue": "79"
+                  }
+                },
+                {
+                  "key": "room_id",
+                  "value": {
+                    "stringValue": "RM_63RUTRnc8dML"
+                  }
+                },
+                {
+                  "key": "job_id",
+                  "value": {
+                    "stringValue": "AJ_UABZM6zyqER2"
+                  }
+                },
+                {
+                  "key": "logger.name",
+                  "value": {
+                    "stringValue": "livekit.agents"
+                  }
+                }
+              ],
+              "flags": 1,
+              "traceId": "md++frxXP1QV05kA4ctkBQ==",
+              "spanId": "N2/86IiCSpY="
+            },
+            {
+              "timeUnixNano": "1765109050539271424",
+              "observedTimeUnixNano": "1765109050540478100",
+              "severityNumber": "SEVERITY_NUMBER_DEBUG",
+              "severityText": "DEBUG",
+              "body": {
+                "stringValue": "input stream attached"
+              },
+              "attributes": [
+                {
+                  "key": "source",
+                  "value": {
+                    "stringValue": "SOURCE_UNKNOWN"
+                  }
+                },
+                {
+                  "key": "accepted_sources",
+                  "value": {
+                    "arrayValue": {
+                      "values": [
+                        {
+                          "stringValue": "SOURCE_MICROPHONE"
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "key": "code.file.path",
+                  "value": {
+                    "stringValue": "C:\\work\\github\\vaiu ai task\\.venv\\Lib\\site-packages\\livekit\\agents\\voice\\room_io\\_input.py"
+                  }
+                },
+                {
+                  "key": "code.function.name",
+                  "value": {
+                    "stringValue": "on_attached"
+                  }
+                },
+                {
+                  "key": "code.line.number",
+                  "value": {
+                    "intValue": "66"
+                  }
+                },
+                {
+                  "key": "room_id",
+                  "value": {
+                    "stringValue": "RM_63RUTRnc8dML"
+                  }
+                },
+                {
+                  "key": "job_id",
+                  "value": {
+                    "stringValue": "AJ_UABZM6zyqER2"
+                  }
+                },
+                {
+                  "key": "logger.name",
+                  "value": {
+                    "stringValue": "livekit.agents"
+                  }
+                }
+              ],
+              "flags": 1,
+              "traceId": "md++frxXP1QV05kA4ctkBQ==",
+              "spanId": "N2/86IiCSpY="
+            },
+            {
+              "timeUnixNano": "1765109050546432512",
+              "observedTimeUnixNano": "1765109050548430600",
+              "severityNumber": "SEVERITY_NUMBER_DEBUG",
+              "severityText": "DEBUG",
+              "body": {
+                "stringValue": "using audio io: `RoomIO` -> `RecorderIO` -> `AgentSession` -> `RecorderIO` -> `TranscriptSynchronizer` -> `RoomIO`"
+              },
+              "attributes": [
+                {
+                  "key": "code.file.path",
+                  "value": {
+                    "stringValue": "C:\\work\\github\\vaiu ai task\\.venv\\Lib\\site-packages\\livekit\\agents\\voice\\agent_session.py"
+                  }
+                },
+                {
+                  "key": "code.function.name",
+                  "value": {
+                    "stringValue": "start"
+                  }
+                },
+                {
+                  "key": "code.line.number",
+                  "value": {
+                    "intValue": "682"
+                  }
+                },
+                {
+                  "key": "room_id",
+                  "value": {
+                    "stringValue": "RM_63RUTRnc8dML"
+                  }
+                },
+                {
+                  "key": "job_id",
+                  "value": {
+                    "stringValue": "AJ_UABZM6zyqER2"
+                  }
+                },
+                {
+                  "key": "logger.name",
+                  "value": {
+                    "stringValue": "livekit.agents"
+                  }
+                }
+              ],
+              "flags": 1,
+              "traceId": "md++frxXP1QV05kA4ctkBQ==",
+              "spanId": "N2/86IiCSpY="
+            },
+            {
+              "timeUnixNano": "1765109050548430592",
+              "observedTimeUnixNano": "1765109050550803800",
+              "severityNumber": "SEVERITY_NUMBER_DEBUG",
+              "severityText": "DEBUG",
+              "body": {
+                "stringValue": "using transcript io: `AgentSession` -> `TranscriptSynchronizer` -> `RoomIO`"
+              },
+              "attributes": [
+                {
+                  "key": "code.file.path",
+                  "value": {
+                    "stringValue": "C:\\work\\github\\vaiu ai task\\.venv\\Lib\\site-packages\\livekit\\agents\\voice\\agent_session.py"
+                  }
+                },
+                {
+                  "key": "code.function.name",
+                  "value": {
+                    "stringValue": "start"
+                  }
+                },
+                {
+                  "key": "code.line.number",
+                  "value": {
+                    "intValue": "697"
+                  }
+                },
+                {
+                  "key": "room_id",
+                  "value": {
+                    "stringValue": "RM_63RUTRnc8dML"
+                  }
+                },
+                {
+                  "key": "job_id",
+                  "value": {
+                    "stringValue": "AJ_UABZM6zyqER2"
+                  }
+                },
+                {
+                  "key": "logger.name",
+                  "value": {
+                    "stringValue": "livekit.agents"
+                  }
+                }
+              ],
+              "flags": 1,
+              "traceId": "md++frxXP1QV05kA4ctkBQ==",
+              "spanId": "N2/86IiCSpY="
+            },
+            {
+              "timeUnixNano": "1765109054160963072",
+              "observedTimeUnixNano": "1765109054163385700",
+              "severityNumber": "SEVERITY_NUMBER_INFO",
+              "severityText": "INFO",
+              "body": {
+                "stringValue": "received job request"
+              },
+              "attributes": [
+                {
+                  "key": "dispatch_id",
+                  "value": {
+                    "stringValue": "AD_JNVJVAUqhTWj"
+                  }
+                },
+                {
+                  "key": "room",
+                  "value": {
+                    "stringValue": "restaurant-booking-1765109053582"
+                  }
+                },
+                {
+                  "key": "agent_name",
+                  "value": {
+                    "stringValue": ""
+                  }
+                },
+                {
+                  "key": "resuming",
+                  "value": {
+                    "boolValue": false
+                  }
+                },
+                {
+                  "key": "enable_recording",
+                  "value": {
+                    "boolValue": true
+                  }
+                },
+                {
+                  "key": "code.file.path",
+                  "value": {
+                    "stringValue": "C:\\work\\github\\vaiu ai task\\.venv\\Lib\\site-packages\\livekit\\agents\\worker.py"
+                  }
+                },
+                {
+                  "key": "code.function.name",
+                  "value": {
+                    "stringValue": "_answer_availability"
+                  }
+                },
+                {
+                  "key": "code.line.number",
+                  "value": {
+                    "intValue": "1199"
+                  }
+                },
+                {
+                  "key": "room_id",
+                  "value": {
+                    "stringValue": "RM_63RUTRnc8dML"
+                  }
+                },
+                {
+                  "key": "job_id",
+                  "value": {
+                    "stringValue": "AJ_UABZM6zyqER2"
+                  }
+                },
+                {
+                  "key": "logger.name",
+                  "value": {
+                    "stringValue": "livekit.agents"
+                  }
+                }
+              ]
+            },
+            {
+              "timeUnixNano": "1765109054208403200",
+              "observedTimeUnixNano": "1765109054210402800",
+              "severityNumber": "SEVERITY_NUMBER_DEBUG",
+              "severityText": "DEBUG",
+              "body": {
+                "stringValue": "received assignment"
+              },
+              "attributes": [
+                {
+                  "key": "agent_name",
+                  "value": {
+                    "stringValue": ""
+                  }
+                },
+                {
+                  "key": "room",
+                  "value": {
+                    "stringValue": "restaurant-booking-1765109053582"
+                  }
+                },
+                {
+                  "key": "dispatch_id",
+                  "value": {
+                    "stringValue": "AD_JNVJVAUqhTWj"
+                  }
+                },
+                {
+                  "key": "enable_recording",
+                  "value": {
+                    "boolValue": true
+                  }
+                },
+                {
+                  "key": "code.file.path",
+                  "value": {
+                    "stringValue": "C:\\work\\github\\vaiu ai task\\.venv\\Lib\\site-packages\\livekit\\agents\\worker.py"
+                  }
+                },
+                {
+                  "key": "code.function.name",
+                  "value": {
+                    "stringValue": "_handle_assignment"
+                  }
+                },
+                {
+                  "key": "code.line.number",
+                  "value": {
+                    "intValue": "1235"
+                  }
+                },
+                {
+                  "key": "room_id",
+                  "value": {
+                    "stringValue": "RM_63RUTRnc8dML"
+                  }
+                },
+                {
+                  "key": "job_id",
+                  "value": {
+                    "stringValue": "AJ_UABZM6zyqER2"
+                  }
+                },
+                {
+                  "key": "logger.name",
+                  "value": {
+                    "stringValue": "livekit.agents"
+                  }
+                }
+              ]
+            },
+            {
+              "timeUnixNano": "1765109054212951808",
+              "observedTimeUnixNano": "1765109054215331500",
+              "severityNumber": "SEVERITY_NUMBER_INFO",
+              "severityText": "INFO",
+              "body": {
+                "stringValue": "initializing job runner"
+              },
+              "attributes": [
+                {
+                  "key": "tid",
+                  "value": {
+                    "intValue": "2152"
+                  }
+                },
+                {
+                  "key": "code.file.path",
+                  "value": {
+                    "stringValue": "C:\\work\\github\\vaiu ai task\\.venv\\Lib\\site-packages\\livekit\\agents\\ipc\\job_thread_executor.py"
+                  }
+                },
+                {
+                  "key": "code.function.name",
+                  "value": {
+                    "stringValue": "initialize"
+                  }
+                },
+                {
+                  "key": "code.line.number",
+                  "value": {
+                    "intValue": "155"
+                  }
+                },
+                {
+                  "key": "room_id",
+                  "value": {
+                    "stringValue": "RM_63RUTRnc8dML"
+                  }
+                },
+                {
+                  "key": "job_id",
+                  "value": {
+                    "stringValue": "AJ_UABZM6zyqER2"
+                  }
+                },
+                {
+                  "key": "logger.name",
+                  "value": {
+                    "stringValue": "livekit.agents"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "scope": {
+            "name": "asyncio"
+          },
+          "logRecords": [
+            {
+              "timeUnixNano": "1765109054215838208",
+              "observedTimeUnixNano": "1765109054216846700",
+              "severityNumber": "SEVERITY_NUMBER_DEBUG",
+              "severityText": "DEBUG",
+              "body": {
+                "stringValue": "Using proactor: IocpProactor"
+              },
+              "attributes": [
+                {
+                  "key": "code.file.path",
+                  "value": {
+                    "stringValue": "C:\\Users\\anshu\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\asyncio\\proactor_events.py"
+                  }
+                },
+                {
+                  "key": "code.function.name",
+                  "value": {
+                    "stringValue": "__init__"
+                  }
+                },
+                {
+                  "key": "code.line.number",
+                  "value": {
+                    "intValue": "633"
+                  }
+                },
+                {
+                  "key": "room_id",
+                  "value": {
+                    "stringValue": "RM_63RUTRnc8dML"
+                  }
+                },
+                {
+                  "key": "job_id",
+                  "value": {
+                    "stringValue": "AJ_UABZM6zyqER2"
+                  }
+                },
+                {
+                  "key": "logger.name",
+                  "value": {
+                    "stringValue": "asyncio"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "scope": {
+            "name": "livekit.agents"
+          },
+          "logRecords": [
+            {
+              "timeUnixNano": "1765109054217942272",
+              "observedTimeUnixNano": "1765109054219358800",
+              "severityNumber": "SEVERITY_NUMBER_INFO",
+              "severityText": "INFO",
+              "body": {
+                "stringValue": "job runner initialized"
+              },
+              "attributes": [
+                {
+                  "key": "tid",
+                  "value": {
+                    "intValue": "2152"
+                  }
+                },
+                {
+                  "key": "elapsed_time",
+                  "value": {
+                    "doubleValue": 0
+                  }
+                },
+                {
+                  "key": "code.file.path",
+                  "value": {
+                    "stringValue": "C:\\work\\github\\vaiu ai task\\.venv\\Lib\\site-packages\\livekit\\agents\\ipc\\job_thread_executor.py"
+                  }
+                },
+                {
+                  "key": "code.function.name",
+                  "value": {
+                    "stringValue": "initialize"
+                  }
+                },
+                {
+                  "key": "code.line.number",
+                  "value": {
+                    "intValue": "164"
+                  }
+                },
+                {
+                  "key": "room_id",
+                  "value": {
+                    "stringValue": "RM_63RUTRnc8dML"
+                  }
+                },
+                {
+                  "key": "job_id",
+                  "value": {
+                    "stringValue": "AJ_UABZM6zyqER2"
+                  }
+                },
+                {
+                  "key": "logger.name",
+                  "value": {
+                    "stringValue": "livekit.agents"
+                  }
+                }
+              ]
+            },
+            {
+              "timeUnixNano": "1765109055922318080",
+              "observedTimeUnixNano": "1765109055923317600",
+              "severityNumber": "SEVERITY_NUMBER_DEBUG",
+              "severityText": "DEBUG",
+              "body": {
+                "stringValue": "configuring session recording"
+              },
+              "attributes": [
+                {
+                  "key": "hostname",
+                  "value": {
+                    "stringValue": "vaiu-ai-irpwqlk6.livekit.cloud"
+                  }
+                },
+                {
+                  "key": "code.file.path",
+                  "value": {
+                    "stringValue": "C:\\work\\github\\vaiu ai task\\.venv\\Lib\\site-packages\\livekit\\agents\\job.py"
+                  }
+                },
+                {
+                  "key": "code.function.name",
+                  "value": {
+                    "stringValue": "init_recording"
+                  }
+                },
+                {
+                  "key": "code.line.number",
+                  "value": {
+                    "intValue": "569"
+                  }
+                },
+                {
+                  "key": "room_id",
+                  "value": {
+                    "stringValue": "RM_63RUTRnc8dML"
+                  }
+                },
+                {
+                  "key": "job_id",
+                  "value": {
+                    "stringValue": "AJ_UABZM6zyqER2"
+                  }
+                },
+                {
+                  "key": "logger.name",
+                  "value": {
+                    "stringValue": "livekit.agents"
+                  }
+                }
+              ],
+              "flags": 1,
+              "traceId": "02xcVOvLi2dA2n60leVMLA==",
+              "spanId": "h66LEDqBMNE="
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

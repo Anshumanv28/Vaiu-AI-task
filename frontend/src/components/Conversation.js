@@ -1,12 +1,19 @@
 import React, { useEffect, useRef, useState } from "react";
 import { colors, shadows, borderRadius, gradients } from "../utils/styles";
 import { useResponsive } from "../hooks/useResponsive";
+import OptionSelector from "./OptionSelector";
 
 const Conversation = ({
   transcript,
   isAgentTyping,
   isAgentSpeaking,
+  agentState,
+  agentStateMessage,
+  isUserExpectedToSpeak,
+  options,
+  optionsMessage,
   onSendMessage,
+  onSelectOption,
   isConnected,
 }) => {
   const messagesEndRef = useRef(null);
@@ -130,13 +137,37 @@ const Conversation = ({
   };
 
   // Typing indicator bubble
-  const typingBubbleStyle = {
-    background: gradients.aquamarine,
-    color: "white",
-    borderRadius: borderRadius["2xl"],
-    borderBottomLeftRadius: borderRadius.sm,
-    padding: isMobile ? "0.75rem 1rem" : "0.875rem 1.25rem",
-    boxShadow: shadows.md,
+  const getTypingBubbleStyle = (state) => {
+    const baseStyle = {
+      color: "white",
+      borderRadius: borderRadius["2xl"],
+      borderBottomLeftRadius: borderRadius.sm,
+      padding: isMobile ? "0.75rem 1rem" : "0.875rem 1.25rem",
+      boxShadow: shadows.md,
+    };
+
+    if (state === "thinking") {
+      return {
+        ...baseStyle,
+        background: gradients["rosy-taupe"],
+      };
+    } else if (state === "ready_to_speak") {
+      return {
+        ...baseStyle,
+        background: gradients["rosy-taupe"],
+        opacity: 0.9,
+      };
+    } else if (state === "processing") {
+      return {
+        ...baseStyle,
+        background: gradients["vintage-berry"],
+      };
+    } else {
+      return {
+        ...baseStyle,
+        background: gradients.aquamarine,
+      };
+    }
   };
 
   // Typing dots container
@@ -228,11 +259,18 @@ const Conversation = ({
               </div>
             ))}
 
-            {/* Typing Indicator */}
-            {isAgentTyping && (
+            {/* Loading Indicators */}
+            {isAgentTyping && agentState && (
               <div style={typingContainerStyle}>
-                <div style={typingBubbleStyle}>
+                <div style={getTypingBubbleStyle(agentState)}>
                   <span style={speakerNameStyle}>Agent</span>
+                  <div style={messageTextStyle}>
+                    {agentState === "thinking" && "Agent is thinking..."}
+                    {agentState === "ready_to_speak" &&
+                      "Agent is preparing to speak..."}
+                    {agentState === "processing" &&
+                      (agentStateMessage || "Processing...")}
+                  </div>
                   <div style={typingDotsStyle}>
                     <div style={getTypingDotStyle(0)} aria-hidden="true" />
                     <div style={getTypingDotStyle(0.15)} aria-hidden="true" />
@@ -240,6 +278,71 @@ const Conversation = ({
                   </div>
                 </div>
               </div>
+            )}
+
+            {/* User Should Speak Indicator */}
+            {isUserExpectedToSpeak && !isAgentSpeaking && (
+              <div style={typingContainerStyle}>
+                <div
+                  style={{
+                    color: "white",
+                    borderRadius: borderRadius["2xl"],
+                    borderBottomLeftRadius: borderRadius.sm,
+                    padding: isMobile ? "0.75rem 1rem" : "0.875rem 1.25rem",
+                    boxShadow: shadows.md,
+                    background: gradients["baby-blue-ice"],
+                    border: `2px solid ${colors["baby-blue-ice"][400]}`,
+                    animation: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+                  }}
+                >
+                  <span style={speakerNameStyle}>System</span>
+                  <div style={messageTextStyle}>Please speak...</div>
+                  <div
+                    style={{
+                      ...typingDotsStyle,
+                      marginTop: "0.5rem",
+                    }}
+                  >
+                    <div
+                      style={{
+                        ...getTypingDotStyle(0),
+                        backgroundColor: colors["baby-blue-ice"][600],
+                        width: "10px",
+                        height: "10px",
+                      }}
+                      aria-hidden="true"
+                    />
+                    <div
+                      style={{
+                        ...getTypingDotStyle(0.2),
+                        backgroundColor: colors["baby-blue-ice"][600],
+                        width: "10px",
+                        height: "10px",
+                      }}
+                      aria-hidden="true"
+                    />
+                    <div
+                      style={{
+                        ...getTypingDotStyle(0.4),
+                        backgroundColor: colors["baby-blue-ice"][600],
+                        width: "10px",
+                        height: "10px",
+                      }}
+                      aria-hidden="true"
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Options Selector */}
+            {options && options.length > 0 && (
+              <OptionSelector
+                options={options}
+                message={optionsMessage}
+                onSelect={onSelectOption}
+                isVisible={true}
+              />
             )}
 
             <div ref={messagesEndRef} />

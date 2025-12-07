@@ -18,6 +18,7 @@ router.post("/", async (req, res) => {
       weatherInfo,
       seatingPreference,
       customerEmail,
+      customerContact,
     } = req.body;
 
     // Validation
@@ -59,6 +60,7 @@ router.post("/", async (req, res) => {
       weatherInfo: weatherInfo || null,
       seatingPreference: seatingPreference || "indoor",
       customerEmail: customerEmail || "",
+      customerContact: customerContact || "",
       status: "pending",
     });
 
@@ -161,6 +163,69 @@ router.delete("/:id", async (req, res) => {
     res.status(500).json({
       success: false,
       error: error.message || "Failed to cancel booking",
+    });
+  }
+});
+
+/**
+ * GET /api/bookings/availability
+ * Check if date/time slot is available
+ * Query params: date (YYYY-MM-DD), time (HH:mm, optional)
+ */
+router.get("/availability", async (req, res) => {
+  try {
+    const { date, time } = req.query;
+
+    if (!date) {
+      return res.status(400).json({
+        success: false,
+        error: "Date parameter is required (YYYY-MM-DD format)",
+      });
+    }
+
+    // Validate date format
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+      return res.status(400).json({
+        success: false,
+        error: "Invalid date format. Use YYYY-MM-DD",
+      });
+    }
+
+    // Validate time format if provided
+    if (time && !/^([0-1][0-9]|2[0-3]):[0-5][0-9]$/.test(time)) {
+      return res.status(400).json({
+        success: false,
+        error: "Invalid time format. Use 24-hour format (HH:mm)",
+      });
+    }
+
+    const query = {
+      bookingDate: new Date(date),
+      status: { $ne: "cancelled" }, // Don't count cancelled bookings
+    };
+
+    if (time) {
+      query.bookingTime = time;
+    }
+
+    const existingBookings = await Booking.find(query);
+
+    const isAvailable = existingBookings.length === 0;
+
+    res.json({
+      success: true,
+      data: {
+        available: isAvailable,
+        date,
+        time: time || null,
+        existingBookings: existingBookings.length,
+      },
+    });
+  } catch (error) {
+    console.error("Availability check error:", error);
+    res.status(500).json({
+      success: false,
+      error: error.message || "Failed to check availability",
     });
   }
 });

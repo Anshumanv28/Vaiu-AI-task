@@ -13,6 +13,9 @@ const VoiceInterface = ({
   room,
   isConnected,
   isAgentSpeaking,
+  agentState,
+  agentStateMessage,
+  isUserExpectedToSpeak,
   onTranscriptUpdate,
 }) => {
   const [isMicEnabled, setIsMicEnabled] = useState(false);
@@ -311,6 +314,15 @@ const VoiceInterface = ({
           color: "white",
           boxShadow: `${shadows.lg}, 0 0 20px rgba(38, 217, 145, 0.3)`, // Using rgba for opacity
         };
+      } else if (isUserExpectedToSpeak && !isAgentSpeaking) {
+        // User should speak - add pulsing effect
+        return {
+          ...baseStyle,
+          background: gradients["baby-blue-ice"], // Using centralized gradient
+          color: "white",
+          boxShadow: `${shadows.lg}, 0 0 0 3px ${colors["baby-blue-ice"][300]}`,
+          animation: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+        };
       } else {
         return {
           ...baseStyle,
@@ -443,6 +455,28 @@ const VoiceInterface = ({
           isAgentSpeaking ? (
             <span style={{ color: colors["baby-blue-ice"][600] }}>
               Agent is speaking...
+            </span>
+          ) : agentState === "thinking" ? (
+            <span style={{ color: colors["rosy-taupe"][600] }}>
+              Agent is thinking...
+            </span>
+          ) : agentState === "ready_to_speak" ? (
+            <span style={{ color: colors["rosy-taupe"][600] }}>
+              Agent is preparing to speak...
+            </span>
+          ) : agentState === "processing" ? (
+            <span style={{ color: colors["rosy-taupe"][600] }}>
+              {agentStateMessage || "Processing..."}
+            </span>
+          ) : isUserExpectedToSpeak ? (
+            <span
+              style={{
+                color: colors["baby-blue-ice"][700],
+                fontWeight: 600,
+                animation: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+              }}
+            >
+              Please speak...
             </span>
           ) : isMicEnabled ? (
             <span style={{ color: colors.aquamarine[700] }}>

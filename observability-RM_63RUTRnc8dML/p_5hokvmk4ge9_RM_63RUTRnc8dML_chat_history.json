@@ -1,0 +1,10 @@
+{
+  "items": [
+    {
+      "id": "item_fa1f20135bea",
+      "type": "agent_handoff",
+      "new_agent_id": "restaurant_booking_agent",
+      "created_at": 1765109050.541574
+    }
+  ]
+}

@@ -8,6 +8,7 @@ const errorHandler = require("./middleware/errorHandler");
 const bookingsRoutes = require("./routes/bookings");
 const weatherRoutes = require("./routes/weather");
 const livekitRoutes = require("./routes/livekit");
+const toolsRoutes = require("./routes/tools");
 
 // Email configuration check (non-blocking with timeout)
 const checkEmailConfig = async () => {
@@ -242,6 +243,7 @@ app.get("/api/health", async (req, res) => {
 app.use("/api/bookings", bookingsRoutes);
 app.use("/api/weather", weatherRoutes);
 app.use("/api/livekit", livekitRoutes);
+app.use("/api/tools", toolsRoutes);
 
 // Error handling middleware (must be last)
 app.use(errorHandler);

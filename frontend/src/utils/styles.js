@@ -146,6 +146,8 @@ export const gradients = {
   "baby-blue-ice": `linear-gradient(135deg, var(--baby-blue-ice-400), var(--baby-blue-ice-600))`,
   "baby-blue-ice-light": `linear-gradient(135deg, var(--baby-blue-ice-50), var(--aquamarine-50), var(--baby-blue-ice-100))`,
   aquamarine: `linear-gradient(135deg, var(--aquamarine-400), var(--aquamarine-600))`,
+  "rosy-taupe": `linear-gradient(135deg, var(--rosy-taupe-400), var(--rosy-taupe-600))`,
+  "vintage-berry": `linear-gradient(135deg, var(--vintage-berry-400), var(--vintage-berry-600))`,
   "text-gradient": `linear-gradient(to right, var(--baby-blue-ice-600), var(--aquamarine-600))`,
 };
 

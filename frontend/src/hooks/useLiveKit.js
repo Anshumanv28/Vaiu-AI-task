@@ -10,6 +10,12 @@ export const useLiveKit = () => {
   const [transcript, setTranscript] = useState([]);
   const [isAgentTyping, setIsAgentTyping] = useState(false);
   const [isAgentSpeaking, setIsAgentSpeaking] = useState(false);
+  const [agentState, setAgentState] = useState(null); // "thinking", "ready_to_speak", "waiting_for_user", "processing"
+  const [agentStateMessage, setAgentStateMessage] = useState(null); // Context message
+  const [isUserExpectedToSpeak, setIsUserExpectedToSpeak] = useState(false);
+  const [options, setOptions] = useState([]); // Selectable options from agent
+  const [optionsMessage, setOptionsMessage] = useState(null); // Message with options
+  const [currentSpeech, setCurrentSpeech] = useState(""); // Current text being spoken
 
   const connect = useCallback(async () => {
     if (isConnecting || isConnected) return;
@@ -65,6 +71,12 @@ export const useLiveKit = () => {
         setIsConnected(false);
         setIsConnecting(false);
         setIsAgentTyping(false);
+        setAgentState(null);
+        setAgentStateMessage(null);
+        setIsUserExpectedToSpeak(false);
+        setOptions([]);
+        setOptionsMessage(null);
+        setCurrentSpeech("");
       });
 
       newRoom.on(RoomEvent.ParticipantConnected, (participant) => {
@@ -79,7 +91,10 @@ export const useLiveKit = () => {
             participant instanceof RemoteParticipant
           ) {
             // Agent audio track subscribed - agent is about to speak
-            console.log("Agent audio track subscribed");
+            console.log("🔊 [FRONTEND] Agent audio track subscribed");
+            console.log(
+              `   Track ID: ${track.sid}, Participant: ${participant.identity}`
+            );
             setIsAgentTyping(true);
 
             // Attach audio track to an audio element for playback
@@ -87,6 +102,32 @@ export const useLiveKit = () => {
             const audioElement = new Audio();
             audioElement.autoplay = true;
             audioElement.playsInline = true;
+
+            // Add logging for audio element events
+            audioElement.addEventListener("loadstart", () => {
+              console.log("🔊 [FRONTEND] Audio element: loadstart");
+            });
+            audioElement.addEventListener("loadeddata", () => {
+              console.log("🔊 [FRONTEND] Audio element: loadeddata");
+            });
+            audioElement.addEventListener("canplay", () => {
+              console.log("🔊 [FRONTEND] Audio element: canplay");
+            });
+            audioElement.addEventListener("play", () => {
+              console.log("🔊 [FRONTEND] Audio element: play event");
+            });
+            audioElement.addEventListener("playing", () => {
+              console.log("🔊 [FRONTEND] Audio element: playing");
+            });
+            audioElement.addEventListener("pause", () => {
+              console.log("🔊 [FRONTEND] Audio element: pause");
+            });
+            audioElement.addEventListener("ended", () => {
+              console.log("🔊 [FRONTEND] Audio element: ended");
+            });
+            audioElement.addEventListener("error", (e) => {
+              console.error("🔊 [FRONTEND] Audio element error:", e);
+            });
 
             // Attach the track to the audio element
             track.attach(audioElement);
@@ -97,24 +138,40 @@ export const useLiveKit = () => {
             }
             newRoom._agentAudioElements.push(audioElement);
 
-            console.log("✅ Agent audio track attached to audio element");
+            console.log(
+              "✅ [FRONTEND] Agent audio track attached to audio element"
+            );
 
             // Ensure audio plays
             audioElement.play().catch((err) => {
-              console.warn("Audio autoplay prevented:", err);
+              console.warn("🔊 [FRONTEND] Audio autoplay prevented:", err);
             });
 
             // Listen for when track actually starts playing
             track.on("started", () => {
-              console.log("Agent audio started playing");
+              console.log("🔊 [FRONTEND] Agent audio track started playing");
+              console.log(`   Track ID: ${track.sid}, Muted: ${track.isMuted}`);
               setIsAgentTyping(false);
               setIsAgentSpeaking(true); // Agent is now speaking
+              // Clear ready_to_speak state when audio actually starts
+              setAgentState((prevState) => {
+                if (prevState === "ready_to_speak") {
+                  return null;
+                }
+                return prevState;
+              });
+              setAgentStateMessage(null);
             });
 
             track.on("ended", () => {
-              console.log("Agent audio ended");
+              console.log("🔊 [FRONTEND] Agent audio track ended");
+              console.log(`   Track ID: ${track.sid}`);
               setIsAgentTyping(false);
               setIsAgentSpeaking(false); // Agent finished speaking
+              // Set waiting_for_user state when agent finishes speaking
+              setAgentState("waiting_for_user");
+              setAgentStateMessage("Waiting for your response...");
+              setIsUserExpectedToSpeak(true);
             });
 
             // Also listen for when track is muted/unmuted
@@ -129,7 +186,7 @@ export const useLiveKit = () => {
         }
       );
 
-      // Listen for data channel messages (transcripts from agent)
+      // Listen for data channel messages (transcripts and state updates from agent)
       newRoom.on(
         RoomEvent.DataReceived,
         (payload, participant, kind, topic) => {
@@ -141,34 +198,91 @@ export const useLiveKit = () => {
                 // Try to parse as JSON first
                 try {
                   const data = JSON.parse(text);
-                  if (data.type === "transcript" || data.text || data.message) {
-                    const transcriptText =
-                      data.text || data.transcript || data.message;
+
+                  // Handle state updates
+                  if (data.type === "state_update") {
+                    console.log(
+                      "State update received:",
+                      data.state,
+                      data.message
+                    );
+                    setAgentState(data.state);
+                    setAgentStateMessage(data.message || null);
+                    // Update user expected to speak based on state
+                    setIsUserExpectedToSpeak(data.state === "waiting_for_user");
+                    // If agent is thinking or processing, show typing indicator
+                    if (
+                      data.state === "thinking" ||
+                      data.state === "processing" ||
+                      data.state === "ready_to_speak"
+                    ) {
+                      setIsAgentTyping(true);
+                    } else {
+                      setIsAgentTyping(false);
+                    }
+                    return;
+                  }
+
+                  // Handle options
+                  if (data.type === "options") {
+                    console.log(
+                      "Options received:",
+                      data.options,
+                      data.message
+                    );
+                    setOptions(data.options || []);
+                    setOptionsMessage(data.message || null);
+                    return;
+                  }
+
+                  // Handle current speech
+                  if (data.type === "current_speech") {
+                    console.log("Current speech received:", data.text);
+                    setCurrentSpeech(data.text || "");
+                    return;
+                  }
+
+                  // Handle transcript messages - ONLY accept our manual transcripts (type: "transcript")
+                  // This ensures we only show what's logged in the terminal (🔊 [AGENT] and 💬 [USER])
+                  if (data.type === "transcript") {
+                    const transcriptText = data.text;
                     const speaker = data.speaker || "agent";
                     if (transcriptText) {
                       // Agent message received, hide typing indicator
                       setIsAgentTyping(false);
-                      setTranscript((prev) => [
-                        ...prev,
-                        {
+                      // Clear ready_to_speak state when transcript is received
+                      setAgentState((prevState) => {
+                        if (prevState === "ready_to_speak") {
+                          return null;
+                        }
+                        return prevState;
+                      });
+                      setAgentStateMessage(null);
+
+                      // Check for duplicates before adding
+                      setTranscript((prev) => {
+                        const isDuplicate = prev.some(
+                          (entry) =>
+                            entry.speaker === speaker &&
+                            entry.text === transcriptText
+                        );
+                        if (isDuplicate) {
+                          return prev; // Ignore duplicate
+                        }
+                        const newEntry = {
                           speaker,
                           text: transcriptText,
                           timestamp: new Date(),
-                        },
-                      ]);
+                        };
+                        return [...prev, newEntry];
+                      });
                     }
+                    return; // Don't process other message types
                   }
                 } catch (parseError) {
-                  // Not JSON, treat as plain text transcript
-                  setIsAgentTyping(false);
-                  setTranscript((prev) => [
-                    ...prev,
-                    {
-                      speaker: "agent",
-                      text: text.trim(),
-                      timestamp: new Date(),
-                    },
-                  ]);
+                  // Not JSON - ignore non-JSON messages
+                  // We only accept structured JSON messages with type: "transcript" from our agent
+                  // This prevents LiveKit's automatic transcripts from being processed
                 }
               }
             } catch (e) {
@@ -197,18 +311,29 @@ export const useLiveKit = () => {
         recognition.maxAlternatives = 1; // Only return the best match
 
         recognition.onresult = (event) => {
+          // Don't add user transcripts here - they come from the agent via data channel
+          // The agent processes user input and sends it as a transcript, matching what's in the terminal
           const last = event.results.length - 1;
           const text = event.results[last][0].transcript;
           if (text && text.trim()) {
-            setTranscript((prev) => [
-              ...prev,
-              { speaker: "user", text: text.trim(), timestamp: new Date() },
-            ]);
+            console.log(
+              "🎤 [FRONTEND] User speech recognized (for logging only):",
+              text.trim()
+            );
+            // Transcript will be added by agent via data channel after processing
           }
         };
 
         recognition.onerror = (event) => {
-          console.error("Speech recognition error:", event.error);
+          console.error("🎤 [FRONTEND] Speech recognition error:", event.error);
+        };
+
+        recognition.onstart = () => {
+          console.log("🎤 [FRONTEND] Speech recognition started");
+        };
+
+        recognition.onend = () => {
+          console.log("🎤 [FRONTEND] Speech recognition ended");
         };
 
         recognition.start();
@@ -243,6 +368,9 @@ export const useLiveKit = () => {
       setIsConnected(false);
       setTranscript([]);
       setIsAgentTyping(false);
+      setAgentState(null);
+      setAgentStateMessage(null);
+      setIsUserExpectedToSpeak(false);
     }
   }, [room]);
 
@@ -260,8 +388,8 @@ export const useLiveKit = () => {
       }
 
       try {
-        // Add user message to transcript immediately
-        addTranscriptEntry("user", text.trim());
+        // Don't add to transcript here - agent will send it via data channel
+        // This ensures we only show what's logged in the terminal
 
         // Send message to agent via data channel
         const messageData = JSON.stringify({
@@ -281,7 +409,42 @@ export const useLiveKit = () => {
         setError(`Failed to send message: ${error.message}`);
       }
     },
-    [room, isConnected, addTranscriptEntry]
+    [room, isConnected]
+  );
+
+  const sendOptionSelection = useCallback(
+    async (option) => {
+      if (!room || !isConnected || !option) {
+        return;
+      }
+
+      try {
+        // Clear options after selection
+        setOptions([]);
+        setOptionsMessage(null);
+
+        // Don't add to transcript here - agent will send it via data channel
+        // This ensures we only show what's logged in the terminal
+
+        // Send option selection to agent via data channel
+        const messageData = JSON.stringify({
+          type: "option_selected",
+          option: option,
+          timestamp: new Date().toISOString(),
+        });
+
+        await room.localParticipant.publishData(
+          new TextEncoder().encode(messageData),
+          { reliable: true }
+        );
+
+        console.log("✅ Option selection sent to agent:", option);
+      } catch (error) {
+        console.error("Error sending option selection:", error);
+        setError(`Failed to send option: ${error.message}`);
+      }
+    },
+    [room, isConnected]
   );
 
   useEffect(() => {
@@ -300,9 +463,16 @@ export const useLiveKit = () => {
     transcript,
     isAgentTyping,
     isAgentSpeaking,
+    agentState,
+    agentStateMessage,
+    isUserExpectedToSpeak,
+    options,
+    optionsMessage,
+    currentSpeech,
     connect,
     disconnect,
     addTranscriptEntry,
     sendTextMessage,
+    sendOptionSelection,
   };
 };

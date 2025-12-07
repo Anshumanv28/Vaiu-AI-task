@@ -16,6 +16,10 @@ const bookingSchema = new mongoose.Schema({
     type: String,
     default: "",
   },
+  customerContact: {
+    type: String,
+    default: "",
+  },
   numberOfGuests: {
     type: Number,
     required: true,
