@@ -1,0 +1,1242 @@
+{
+	"info": {
+		"_postman_id": "restaurant-booking-api-v1",
+		"name": "Restaurant Booking API",
+		"description": "Complete API documentation for the Restaurant Booking System with voice agent integration. Includes endpoints for bookings, weather, tools, and LiveKit token generation.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "restaurant-booking-api"
+	},
+	"item": [
+		{
+			"name": "Health & Info",
+			"item": [
+				{
+					"name": "Health Check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/health",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"health"
+							]
+						},
+						"description": "Check the health status of the API and its services (MongoDB, Email). Returns status of all services."
+					},
+					"response": [
+						{
+							"name": "Success - All Services OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/health",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"health"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"status\": \"ok\",\n    \"timestamp\": \"2024-01-15T10:30:00.000Z\",\n    \"services\": {\n        \"server\": \"running\",\n        \"mongodb\": \"connected\",\n        \"email\": \"configured\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "API Info",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								""
+							]
+						},
+						"description": "Get API information and available endpoints."
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"message\": \"Restaurant Booking API\",\n    \"version\": \"1.0.0\",\n    \"endpoints\": {\n        \"bookings\": \"/api/bookings\",\n        \"weather\": \"/api/weather/:date\",\n        \"health\": \"/api/health\"\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Weather",
+			"item": [
+				{
+					"name": "Get Weather for Date",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/weather/2024-01-20?time=19:00",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"weather",
+								"2024-01-20"
+							],
+							"query": [
+								{
+									"key": "time",
+									"value": "19:00",
+									"description": "Optional: Time in HH:mm format (24-hour). Provides more accurate weather prediction for specific time."
+								}
+							],
+							"description": "Fetch weather forecast for a specific date and optionally time. The time parameter helps get more accurate weather predictions for the booking time.\n\n**Date Format**: YYYY-MM-DD (e.g., 2024-01-20)\n**Time Format**: HH:mm (24-hour, e.g., 19:00 for 7 PM)\n\n**Location**: Defaults to Mumbai, can be configured via RESTAURANT_LOCATION environment variable."
+					},
+					"response": [
+						{
+							"name": "Success - With Time",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/weather/2024-01-20?time=19:00",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"weather",
+										"2024-01-20"
+									],
+									"query": [
+										{
+											"key": "time",
+											"value": "19:00"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"date\": \"2024-01-20\",\n        \"time\": \"19:00\",\n        \"location\": \"Mumbai\",\n        \"condition\": \"Clear\",\n        \"temperature\": 28,\n        \"description\": \"clear sky\",\n        \"humidity\": 65,\n        \"windSpeed\": 3.5\n    }\n}"
+						},
+						{
+							"name": "Success - Date Only",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/weather/2024-01-20",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"weather",
+										"2024-01-20"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"date\": \"2024-01-20\",\n        \"time\": null,\n        \"location\": \"Mumbai\",\n        \"condition\": \"Clouds\",\n        \"temperature\": 26,\n        \"description\": \"few clouds\",\n        \"humidity\": 70,\n        \"windSpeed\": 4.2\n    }\n}"
+						},
+						{
+							"name": "Error - Invalid Date Format",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/weather/2024-1-20",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"weather",
+										"2024-1-20"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"success\": false,\n    \"error\": \"Invalid date format. Use YYYY-MM-DD\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Bookings",
+			"item": [
+				{
+					"name": "Create Booking",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"numberOfGuests\": 4,\n    \"bookingDate\": \"2024-01-20\",\n    \"bookingTime\": \"19:00\",\n    \"cuisinePreference\": \"Italian\",\n    \"specialRequests\": \"Window seat preferred\",\n    \"seatingPreference\": \"indoor\",\n    \"customerName\": \"John Doe\",\n    \"customerEmail\": \"john.doe@example.com\",\n    \"customerContact\": \"+1234567890\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/bookings",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"bookings"
+							]
+						},
+						"description": "Create a new restaurant booking.\n\n**Required Fields**:\n- `numberOfGuests` (number): Number of guests (min: 1)\n- `bookingDate` (string): Date in YYYY-MM-DD format\n- `bookingTime` (string): Time in HH:mm format (24-hour, e.g., \"19:00\" for 7 PM)\n\n**Optional Fields**:\n- `cuisinePreference` (string): Cuisine type preference\n- `specialRequests` (string): Special requests or dietary restrictions\n- `seatingPreference` (string): \"indoor\" or \"outdoor\" (case-insensitive, defaults to \"indoor\")\n- `customerName` (string): Customer name (defaults to \"Guest\")\n- `customerEmail` (string): Email for confirmation\n- `customerContact` (string): Contact number\n\n**Note**: Seating preference is automatically normalized to lowercase. Invalid values default to \"indoor\"."
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"numberOfGuests\": 4,\n    \"bookingDate\": \"2024-01-20\",\n    \"bookingTime\": \"19:00\",\n    \"cuisinePreference\": \"Italian\",\n    \"specialRequests\": \"Window seat preferred\",\n    \"seatingPreference\": \"indoor\",\n    \"customerName\": \"John Doe\",\n    \"customerEmail\": \"john.doe@example.com\",\n    \"customerContact\": \"+1234567890\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/bookings",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"bookings"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"_id\": \"65a1b2c3d4e5f6g7h8i9j0k1\",\n        \"bookingId\": \"65a1b2c3d4e5f6g7h8i9j0k1\",\n        \"customerName\": \"John Doe\",\n        \"customerEmail\": \"john.doe@example.com\",\n        \"customerContact\": \"+1234567890\",\n        \"numberOfGuests\": 4,\n        \"bookingDate\": \"2024-01-20T00:00:00.000Z\",\n        \"bookingTime\": \"19:00\",\n        \"cuisinePreference\": \"Italian\",\n        \"specialRequests\": \"Window seat preferred\",\n        \"seatingPreference\": \"indoor\",\n        \"status\": \"pending\",\n        \"createdAt\": \"2024-01-15T10:30:00.000Z\"\n    }\n}"
+						},
+						{
+							"name": "Error - Missing Required Fields",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"numberOfGuests\": 4\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/bookings",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"bookings"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"success\": false,\n    \"error\": \"numberOfGuests, bookingDate, and bookingTime are required\"\n}"
+						},
+						{
+							"name": "Error - Invalid Time Format",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"numberOfGuests\": 4,\n    \"bookingDate\": \"2024-01-20\",\n    \"bookingTime\": \"7:00 PM\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/bookings",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"bookings"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"success\": false,\n    \"error\": \"Invalid time format. Use 24-hour format (HH:mm)\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get All Bookings",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/bookings",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"bookings"
+							]
+						},
+						"description": "Retrieve all bookings sorted by creation date (newest first)."
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/bookings",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"bookings"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"success\": true,\n    \"count\": 2,\n    \"data\": [\n        {\n            \"_id\": \"65a1b2c3d4e5f6g7h8i9j0k1\",\n            \"bookingId\": \"65a1b2c3d4e5f6g7h8i9j0k1\",\n            \"customerName\": \"John Doe\",\n            \"numberOfGuests\": 4,\n            \"bookingDate\": \"2024-01-20T00:00:00.000Z\",\n            \"bookingTime\": \"19:00\",\n            \"status\": \"pending\"\n        },\n        {\n            \"_id\": \"65a1b2c3d4e5f6g7h8i9j0k2\",\n            \"bookingId\": \"65a1b2c3d4e5f6g7h8i9j0k2\",\n            \"customerName\": \"Jane Smith\",\n            \"numberOfGuests\": 2,\n            \"bookingDate\": \"2024-01-21T00:00:00.000Z\",\n            \"bookingTime\": \"20:00\",\n            \"status\": \"confirmed\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Booking by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/bookings/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"bookings",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "65a1b2c3d4e5f6g7h8i9j0k1",
+									"description": "MongoDB ObjectId of the booking"
+								}
+							]
+						},
+						"description": "Retrieve a specific booking by its MongoDB ObjectId."
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/bookings/65a1b2c3d4e5f6g7h8i9j0k1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"bookings",
+										"65a1b2c3d4e5f6g7h8i9j0k1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"_id\": \"65a1b2c3d4e5f6g7h8i9j0k1\",\n        \"bookingId\": \"65a1b2c3d4e5f6g7h8i9j0k1\",\n        \"customerName\": \"John Doe\",\n        \"customerEmail\": \"john.doe@example.com\",\n        \"customerContact\": \"+1234567890\",\n        \"numberOfGuests\": 4,\n        \"bookingDate\": \"2024-01-20T00:00:00.000Z\",\n        \"bookingTime\": \"19:00\",\n        \"cuisinePreference\": \"Italian\",\n        \"specialRequests\": \"Window seat preferred\",\n        \"seatingPreference\": \"indoor\",\n        \"status\": \"pending\",\n        \"createdAt\": \"2024-01-15T10:30:00.000Z\"\n    }\n}"
+						},
+						{
+							"name": "Error - Not Found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/bookings/invalid_id",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"bookings",
+										"invalid_id"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"success\": false,\n    \"error\": \"Booking not found\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Cancel Booking",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/bookings/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"bookings",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "65a1b2c3d4e5f6g7h8i9j0k1",
+									"description": "MongoDB ObjectId of the booking to cancel"
+								}
+							]
+						},
+						"description": "Cancel a booking by setting its status to 'cancelled'."
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/bookings/65a1b2c3d4e5f6g7h8i9j0k1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"bookings",
+										"65a1b2c3d4e5f6g7h8i9j0k1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"_id\": \"65a1b2c3d4e5f6g7h8i9j0k1\",\n        \"status\": \"cancelled\"\n    },\n    \"message\": \"Booking cancelled successfully\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Check Availability",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/bookings/availability?date=2024-01-20&time=19:00",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"bookings",
+								"availability"
+							],
+							"query": [
+								{
+									"key": "date",
+									"value": "2024-01-20",
+									"description": "Required: Date in YYYY-MM-DD format"
+								},
+								{
+									"key": "time",
+									"value": "19:00",
+									"description": "Optional: Time in HH:mm format (24-hour). If provided, checks exact time slot. If omitted, checks entire date."
+								}
+							],
+							"description": "Check if a date/time slot is available for booking. Returns availability status and count of existing bookings.\n\n**Query Parameters**:\n- `date` (required): Date in YYYY-MM-DD format\n- `time` (optional): Time in HH:mm format (24-hour). If provided, checks exact time slot availability."
+					},
+					"response": [
+						{
+							"name": "Success - Available",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/bookings/availability?date=2024-01-20&time=19:00",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"bookings",
+										"availability"
+									],
+									"query": [
+										{
+											"key": "date",
+											"value": "2024-01-20"
+										},
+										{
+											"key": "time",
+											"value": "19:00"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"available\": true,\n        \"date\": \"2024-01-20\",\n        \"time\": \"19:00\",\n        \"existingBookings\": 0\n    }\n}"
+						},
+						{
+							"name": "Success - Not Available",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/bookings/availability?date=2024-01-20&time=19:00",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"bookings",
+										"availability"
+									],
+									"query": [
+										{
+											"key": "date",
+											"value": "2024-01-20"
+										},
+										{
+											"key": "time",
+											"value": "19:00"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"available\": false,\n        \"date\": \"2024-01-20\",\n        \"time\": \"19:00\",\n        \"existingBookings\": 1\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Tools",
+			"item": [
+				{
+					"name": "List All Tools",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/tools",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"tools"
+							]
+						},
+						"description": "Get a list of all available tools with their names and descriptions."
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/tools",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"tools"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"success\": true,\n    \"data\": [\n        {\n            \"name\": \"weather\",\n            \"description\": \"Get weather forecast for a specific date and optionally time\"\n        },\n        {\n            \"name\": \"check-availability\",\n            \"description\": \"Check if a date/time slot is available for booking\"\n        },\n        {\n            \"name\": \"send-email\",\n            \"description\": \"Send booking confirmation email\"\n        },\n        {\n            \"name\": \"create-booking\",\n            \"description\": \"Create a new restaurant booking\"\n        },\n        {\n            \"name\": \"check-date\",\n            \"description\": \"Get current date and time for context awareness\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Execute Tool - Check Date",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/tools/check-date",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"tools",
+								"check-date"
+							]
+						},
+						"description": "Get current date and time for context awareness. Helps detect if users are trying to book in the past and calculate relative dates like 'today', 'tomorrow', etc.\n\n**Parameters**: None required (empty object)"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/tools/check-date",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"tools",
+										"check-date"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"today\": \"2024-01-15\",\n        \"date\": \"2024-01-15\",\n        \"currentTime\": \"15:30\",\n        \"time\": \"15:30\",\n        \"dayOfWeek\": \"Monday\",\n        \"formatted\": \"Monday, January 15, 2024\",\n        \"formattedTime\": \"3:30 PM\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Execute Tool - Check Weather",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"date\": \"2024-01-20\",\n    \"time\": \"19:00\",\n    \"location\": \"Mumbai\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/tools/weather",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"tools",
+								"weather"
+							]
+						},
+						"description": "Get weather forecast for a specific date and optionally time. Provides more accurate predictions when time is included.\n\n**Parameters**:\n- `date` (required): Date in YYYY-MM-DD format\n- `time` (optional): Time in HH:mm format (24-hour)\n- `location` (optional): Location name (defaults to Mumbai)"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"date\": \"2024-01-20\",\n    \"time\": \"19:00\",\n    \"location\": \"Mumbai\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/tools/weather",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"tools",
+										"weather"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"date\": \"2024-01-20\",\n        \"time\": \"19:00\",\n        \"location\": \"Mumbai\",\n        \"condition\": \"Clear\",\n        \"temperature\": 28,\n        \"description\": \"clear sky\",\n        \"humidity\": 65,\n        \"windSpeed\": 3.5\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Execute Tool - Check Availability",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"date\": \"2024-01-20\",\n    \"time\": \"19:00\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/tools/check-availability",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"tools",
+								"check-availability"
+							]
+						},
+						"description": "Check if a date/time slot is available for booking.\n\n**Parameters**:\n- `date` (required): Date in YYYY-MM-DD format\n- `time` (optional): Time in HH:mm format (24-hour). If omitted, checks entire date."
+					},
+					"response": [
+						{
+							"name": "Success - Available",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"date\": \"2024-01-20\",\n    \"time\": \"19:00\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/tools/check-availability",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"tools",
+										"check-availability"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"available\": true,\n        \"date\": \"2024-01-20\",\n        \"time\": \"19:00\",\n        \"existingBookings\": 0\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Execute Tool - Create Booking",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"numberOfGuests\": 4,\n    \"bookingDate\": \"2024-01-20\",\n    \"bookingTime\": \"19:00\",\n    \"cuisinePreference\": \"Italian\",\n    \"specialRequests\": \"Window seat preferred\",\n    \"seatingPreference\": \"indoor\",\n    \"customerName\": \"John Doe\",\n    \"customerEmail\": \"john.doe@example.com\",\n    \"customerContact\": \"+1234567890\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/tools/create-booking",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"tools",
+								"create-booking"
+							]
+						},
+						"description": "Create a new restaurant booking via tool execution.\n\n**Required Parameters**:\n- `numberOfGuests` (number): Number of guests (min: 1)\n- `bookingDate` (string): Date in YYYY-MM-DD format\n- `bookingTime` (string): Time in HH:mm format (24-hour)\n\n**Optional Parameters**:\n- `cuisinePreference` (string): Cuisine type preference\n- `specialRequests` (string): Special requests or dietary restrictions\n- `seatingPreference` (string): \"indoor\" or \"outdoor\" (case-insensitive, defaults to \"indoor\")\n- `customerName` (string): Customer name (defaults to \"Guest\")\n- `customerEmail` (string): Email for confirmation\n- `customerContact` (string): Contact number\n\n**Note**: Seating preference is automatically normalized to lowercase."
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"numberOfGuests\": 4,\n    \"bookingDate\": \"2024-01-20\",\n    \"bookingTime\": \"19:00\",\n    \"cuisinePreference\": \"Italian\",\n    \"specialRequests\": \"Window seat preferred\",\n    \"seatingPreference\": \"indoor\",\n    \"customerName\": \"John Doe\",\n    \"customerEmail\": \"john.doe@example.com\",\n    \"customerContact\": \"+1234567890\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/tools/create-booking",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"tools",
+										"create-booking"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"booking\": {\n            \"_id\": \"65a1b2c3d4e5f6g7h8i9j0k1\",\n            \"bookingId\": \"65a1b2c3d4e5f6g7h8i9j0k1\",\n            \"customerName\": \"John Doe\",\n            \"numberOfGuests\": 4,\n            \"bookingDate\": \"2024-01-20T00:00:00.000Z\",\n            \"bookingTime\": \"19:00\",\n            \"seatingPreference\": \"indoor\",\n            \"status\": \"pending\"\n        },\n        \"emailStatus\": {\n            \"sent\": true,\n            \"error\": null\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Execute Tool - Send Email",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"bookingId\": \"65a1b2c3d4e5f6g7h8i9j0k1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/tools/send-email",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"tools",
+								"send-email"
+							]
+						},
+						"description": "Send booking confirmation email for an existing booking.\n\n**Parameters**:\n- `bookingId` (required): MongoDB ObjectId of the booking to send confirmation for"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"bookingId\": \"65a1b2c3d4e5f6g7h8i9j0k1\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/tools/send-email",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"tools",
+										"send-email"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"bookingId\": \"65a1b2c3d4e5f6g7h8i9j0k1\",\n        \"emailSent\": true,\n        \"customerEmail\": \"john.doe@example.com\",\n        \"restaurantEmail\": \"restaurant@example.com\"\n    }\n}"
+						},
+						{
+							"name": "Error - Booking Not Found",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"bookingId\": \"invalid_id\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/tools/send-email",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"tools",
+										"send-email"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"success\": false,\n    \"error\": \"Booking not found\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "LiveKit",
+			"item": [
+				{
+					"name": "Generate Access Token",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"roomName\": \"restaurant-booking-1234567890\",\n    \"participantName\": \"user-1234567890\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/livekit/token",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"livekit",
+								"token"
+							]
+						},
+						"description": "Generate a LiveKit access token for frontend connection to voice agent room.\n\n**Required Fields**:\n- `roomName` (string): Unique room identifier\n- `participantName` (string): Participant identifier\n\n**Note**: Requires LIVEKIT_API_KEY and LIVEKIT_API_SECRET environment variables to be configured."
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"roomName\": \"restaurant-booking-1234567890\",\n    \"participantName\": \"user-1234567890\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/livekit/token",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"livekit",
+										"token"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"success\": true,\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDUzMjE4MDAsImlzcyI6IkFQSUtleSIsIm5iZiI6MTcwNTMxODIwMCwic3ViIjoidXNlci0xMjM0NTY3ODkwIiwidmlkZW8iOnsicm9vbSI6InJlc3RhdXJhbnQtYm9va2luZy0xMjM0NTY3ODkwIiwicm9vbUpvaW4iOnRydWUsImNhblB1Ymxpc2giOnRydWUsImNhblN1YnNjcmliZSI6dHJ1ZX19.abc123def456ghi789\"\n}"
+						},
+						{
+							"name": "Error - Missing Fields",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"roomName\": \"restaurant-booking-1234567890\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/livekit/token",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"livekit",
+										"token"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": "{\n    \"success\": false,\n    \"error\": \"roomName and participantName are required\"\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:5000",
+			"type": "string"
+		}
+	]
+}

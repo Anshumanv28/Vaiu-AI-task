@@ -9,6 +9,7 @@ const {
   bookingTool,
   emailTool,
   dateAvailabilityTool,
+  dateCheckTool,
 } = require("../tools");
 
 // Tool registry mapping
@@ -17,6 +18,7 @@ const toolRegistry = {
   "check-availability": dateAvailabilityTool,
   "send-email": emailTool,
   "create-booking": bookingTool,
+  "check-date": dateCheckTool,
 };
 
 /**
@@ -52,6 +54,10 @@ router.post("/:toolName", async (req, res) => {
     if (result.success) {
       console.log(
         `✅ [BACKEND] Tool '${toolName}' executed successfully in ${duration}ms`
+      );
+      console.log(
+        `📤 [BACKEND] Tool '${toolName}' result:`,
+        JSON.stringify(result.data || result, null, 2)
       );
     } else {
       console.error(`❌ [BACKEND] Tool '${toolName}' failed: ${result.error}`);

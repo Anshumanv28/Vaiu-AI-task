@@ -24,14 +24,20 @@ class EmailTool(BaseTool):
         Returns:
             Email sending status
         """
+        print(f"🔧 [EMAIL_TOOL] Executing with params: {params}")
         error = self.validate_params(params, ['bookingId'])
         if error:
+            print(f"❌ [EMAIL_TOOL] Validation failed: {error}")
             return {'success': False, 'error': error}
         
         try:
-            result = await self.api_client.send_email(params['bookingId'])
+            result = await self.api_client.call_tool('send-email', params)
+            print(f"✅ [EMAIL_TOOL] Email sent successfully")
             return result
         except Exception as e:
+            print(f"❌ [EMAIL_TOOL] Error: {str(e)}")
+            import traceback
+            traceback.print_exc()
             return {
                 'success': False,
                 'error': str(e)

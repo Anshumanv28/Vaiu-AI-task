@@ -4,9 +4,10 @@
 const { getWeatherForDate } = require("../services/weatherService");
 
 /**
- * Check weather for a specific date
+ * Check weather for a specific date and optionally time
  * @param {Object} params - Tool parameters
  * @param {string} params.date - Date in YYYY-MM-DD format
+ * @param {string} [params.time] - Time in HH:mm format (24-hour, e.g., "19:00" for 7 PM)
  * @param {string} [params.location] - Location (defaults to RESTAURANT_LOCATION or "Mumbai")
  * @returns {Promise<Object>} Weather data with condition, temperature, description
  */
@@ -15,7 +16,7 @@ const execute = async (params) => {
   console.log(`📦 [WEATHER_TOOL] Params:`, JSON.stringify(params, null, 2));
 
   try {
-    const { date, location } = params;
+    const { date, time, location } = params;
 
     if (!date) {
       const error = "Date parameter is required";
@@ -30,13 +31,21 @@ const execute = async (params) => {
       throw new Error(error);
     }
 
+    // Validate time format if provided
+    if (time && !/^([0-1][0-9]|2[0-3]):[0-5][0-9]$/.test(time)) {
+      const error = "Invalid time format. Use 24-hour format (HH:mm)";
+      console.error(`❌ [WEATHER_TOOL] ${error}`);
+      throw new Error(error);
+    }
+
     const targetLocation =
       location || process.env.RESTAURANT_LOCATION || "Mumbai";
+    const timeStr = time ? ` at ${time}` : "";
     console.log(
-      `🌤️ [WEATHER_TOOL] Fetching weather for ${date} in ${targetLocation}`
+      `🌤️ [WEATHER_TOOL] Fetching weather for ${date}${timeStr} in ${targetLocation}`
     );
 
-    const weatherData = await getWeatherForDate(date, targetLocation);
+    const weatherData = await getWeatherForDate(date, targetLocation, time);
 
     console.log(
       `✅ [WEATHER_TOOL] Weather fetched successfully:`,

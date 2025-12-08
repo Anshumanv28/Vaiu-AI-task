@@ -32,12 +32,11 @@ class BookingTool(BaseTool):
             return {'success': False, 'error': error}
         
         try:
-            booking = await self.api_client.create_booking(params)
-            print(f"✅ [BOOKING_TOOL] Booking created: {booking.get('_id') or booking.get('bookingId')}")
-            return {
-                'success': True,
-                'data': booking
-            }
+            result = await self.api_client.call_tool('create-booking', params)
+            booking = result.get('data', {}).get('booking', {})
+            booking_id = booking.get('_id') or booking.get('bookingId') or result.get('data', {}).get('bookingId')
+            print(f"✅ [BOOKING_TOOL] Booking created: {booking_id}")
+            return result
         except Exception as e:
             print(f"❌ [BOOKING_TOOL] Error: {str(e)}")
             import traceback

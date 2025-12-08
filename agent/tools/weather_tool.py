@@ -1,6 +1,7 @@
 """
 Weather checking tool wrapper
 """
+import re
 from .base_tool import BaseTool
 from utils.api_client import BackendAPIClient
 from typing import Dict, Any
@@ -18,9 +19,9 @@ class WeatherTool(BaseTool):
     
     async def execute(self, params: Dict[str, Any]) -> Dict[str, Any]:
         """
-        Check weather for a date
+        Check weather for a date and optionally time
         Args:
-            params: {'date': 'YYYY-MM-DD'}
+            params: {'date': 'YYYY-MM-DD', 'time': 'HH:mm' (optional)}
         Returns:
             Weather data dict
         """
@@ -30,13 +31,17 @@ class WeatherTool(BaseTool):
             print(f"❌ [WEATHER_TOOL] Validation failed: {error}")
             return {'success': False, 'error': error}
         
+        # Validate time format if provided
+        if 'time' in params and params['time']:
+            if not re.match(r'^([0-1][0-9]|2[0-3]):[0-5][0-9]$', params['time']):
+                error = "Invalid time format. Use 24-hour format (HH:mm)"
+                print(f"❌ [WEATHER_TOOL] {error}")
+                return {'success': False, 'error': error}
+        
         try:
-            weather_data = await self.api_client.get_weather(params['date'])
-            print(f"✅ [WEATHER_TOOL] Weather data retrieved: {weather_data}")
-            return {
-                'success': True,
-                'data': weather_data
-            }
+            result = await self.api_client.call_tool('weather', params)
+            print(f"✅ [WEATHER_TOOL] Weather data retrieved")
+            return result
         except Exception as e:
             print(f"❌ [WEATHER_TOOL] Error: {str(e)}")
             import traceback

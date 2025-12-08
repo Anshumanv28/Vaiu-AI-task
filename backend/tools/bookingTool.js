@@ -48,6 +48,19 @@ const execute = async (params) => {
       throw new Error("Invalid time format. Use 24-hour format (HH:mm)");
     }
 
+    // Normalize seating preference to lowercase and validate
+    let normalizedSeatingPreference = "indoor"; // default
+    if (seatingPreference) {
+      const normalized = seatingPreference.toLowerCase().trim();
+      if (normalized === "indoor" || normalized === "outdoor") {
+        normalizedSeatingPreference = normalized;
+      } else {
+        console.warn(
+          `⚠️ [BOOKING_TOOL] Invalid seating preference "${seatingPreference}", defaulting to "indoor"`
+        );
+      }
+    }
+
     // Check for duplicates
     console.log(
       `🔍 [BOOKING_TOOL] Checking for existing bookings on ${bookingDate} at ${bookingTime}`
@@ -67,6 +80,9 @@ const execute = async (params) => {
 
     // Create booking
     console.log(`📝 [BOOKING_TOOL] Creating new booking...`);
+    console.log(
+      `📋 [BOOKING_TOOL] Seating preference: "${seatingPreference}" → normalized to "${normalizedSeatingPreference}"`
+    );
     const booking = await Booking.create({
       numberOfGuests,
       bookingDate: new Date(bookingDate),
@@ -74,7 +90,7 @@ const execute = async (params) => {
       cuisinePreference: cuisinePreference || "",
       specialRequests: specialRequests || "",
       weatherInfo: weatherInfo || null,
-      seatingPreference: seatingPreference || "indoor",
+      seatingPreference: normalizedSeatingPreference,
       customerName: customerName || "Guest",
       customerEmail: customerEmail || "",
       customerContact: customerContact || "",

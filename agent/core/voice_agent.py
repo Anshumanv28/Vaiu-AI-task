@@ -2,6 +2,7 @@
 Core voice agent class - handles TTS/STT communication only
 Delegates business logic to tool handlers
 """
+import json
 from livekit.agents import function_tool, RunContext
 from livekit.agents.voice import Agent, AgentSession
 from utils.tool_executor import ToolExecutor
@@ -24,22 +25,35 @@ class VoiceAgent(Agent):
         self,
         ctx: RunContext,
         date: str,
+        time: Optional[str] = None,
         location: Optional[str] = None
     ) -> Dict[str, Any]:
-        """Check weather forecast for a specific date.
+        """Check weather forecast for a specific date and optionally time for more accurate predictions.
         
         Args:
             date: Date in YYYY-MM-DD format (e.g., "2024-01-15")
+            time: Optional time in HH:mm format (24-hour, e.g., "19:00" for 7 PM). 
+                  Providing time gives more accurate weather predictions for that specific time.
             location: Optional location (defaults to restaurant location)
         
         Returns:
             Weather data including condition, temperature, and description
         """
+        print(f"🔧 [AGENT_TOOL] check_weather called with date={date}, time={time}, location={location}")
         params = {'date': date}
+        if time:
+            params['time'] = time
         if location:
             params['location'] = location
         result = await self.tool_executor.execute('weather', params)
-        return result.get('data', {}) if result.get('success') else {'error': result.get('error', 'Unknown error')}
+        if result.get('success'):
+            weather_data = result.get('data', {})
+            print(f"✅ [AGENT_TOOL] check_weather result: {weather_data}")
+            return weather_data
+        else:
+            error = result.get('error', 'Unknown error')
+            print(f"❌ [AGENT_TOOL] check_weather failed: {error}")
+            return {'error': error}
     
     @function_tool()
     async def check_availability(
@@ -57,11 +71,19 @@ class VoiceAgent(Agent):
         Returns:
             Availability status with available boolean and existing bookings count
         """
+        print(f"🔧 [AGENT_TOOL] check_availability called with date={date}, time={time}")
         params = {'date': date}
         if time:
             params['time'] = time
         result = await self.tool_executor.execute('check-availability', params)
-        return result.get('data', {}) if result.get('success') else {'error': result.get('error', 'Unknown error')}
+        if result.get('success'):
+            availability_data = result.get('data', {})
+            print(f"✅ [AGENT_TOOL] check_availability result: {availability_data}")
+            return availability_data
+        else:
+            error = result.get('error', 'Unknown error')
+            print(f"❌ [AGENT_TOOL] check_availability failed: {error}")
+            return {'error': error}
     
     @function_tool()
     async def create_booking(
@@ -93,6 +115,7 @@ class VoiceAgent(Agent):
         Returns:
             Created booking data including booking ID
         """
+        print(f"🔧 [AGENT_TOOL] create_booking called with guests={numberOfGuests}, date={bookingDate}, time={bookingTime}")
         params = {
             'numberOfGuests': numberOfGuests,
             'bookingDate': bookingDate,
@@ -112,7 +135,38 @@ class VoiceAgent(Agent):
             params['customerContact'] = customerContact
         
         result = await self.tool_executor.execute('create-booking', params)
-        return result.get('data', {}) if result.get('success') else {'error': result.get('error', 'Unknown error')}
+        if result.get('success'):
+            booking_data = result.get('data', {})
+            booking_id = booking_data.get('booking', {}).get('_id') or booking_data.get('bookingId') or booking_data.get('_id')
+            print(f"✅ [AGENT_TOOL] create_booking result: Booking created with ID {booking_id}")
+            print(f"📋 [AGENT_TOOL] Booking details: {json.dumps(booking_data, default=str, indent=2)}")
+            return booking_data
+        else:
+            error = result.get('error', 'Unknown error')
+            print(f"❌ [AGENT_TOOL] create_booking failed: {error}")
+            return {'error': error}
+    
+    @function_tool()
+    async def check_date(
+        self,
+        ctx: RunContext
+    ) -> Dict[str, Any]:
+        """Get current date and time for context awareness when users say 'today', 'tomorrow', 'day after tomorrow', etc.
+        Also helps detect if users are trying to book in the past.
+        
+        Returns:
+            Current date (YYYY-MM-DD) and time (HH:mm in 24-hour format), along with formatted date and day of week
+        """
+        print(f"🔧 [AGENT_TOOL] check_date called")
+        result = await self.tool_executor.execute('check-date', {})
+        if result.get('success'):
+            date_data = result.get('data', {})
+            print(f"✅ [AGENT_TOOL] check_date result: Today is {date_data.get('today')} at {date_data.get('currentTime')}")
+            return date_data
+        else:
+            error = result.get('error', 'Unknown error')
+            print(f"❌ [AGENT_TOOL] check_date failed: {error}")
+            return {'error': error}
     
     @function_tool()
     async def send_email(
@@ -128,9 +182,17 @@ class VoiceAgent(Agent):
         Returns:
             Email sending status
         """
+        print(f"🔧 [AGENT_TOOL] send_email called with bookingId={bookingId}")
         params = {'bookingId': bookingId}
         result = await self.tool_executor.execute('send-email', params)
-        return result.get('data', {}) if result.get('success') else {'error': result.get('error', 'Unknown error')}
+        if result.get('success'):
+            email_data = result.get('data', {})
+            print(f"✅ [AGENT_TOOL] send_email result: {email_data}")
+            return email_data
+        else:
+            error = result.get('error', 'Unknown error')
+            print(f"❌ [AGENT_TOOL] send_email failed: {error}")
+            return {'error': error}
     
     async def on_agent_turn(self, turn_ctx):
         """
@@ -174,8 +236,9 @@ class VoiceAgent(Agent):
                         else:
                             text = str(item.content).strip()
                         
-                        # Send transcript to frontend
+                        # Log and send transcript to frontend
                         if text:
+                            print(f"🔊 [AGENT] {text}")
                             import asyncio
                             asyncio.create_task(self.send_transcript('agent', text))
                 

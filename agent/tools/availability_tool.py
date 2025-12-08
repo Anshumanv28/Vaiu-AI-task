@@ -6,7 +6,7 @@ from utils.api_client import BackendAPIClient
 from typing import Dict, Any
 
 
-class DateCheckTool(BaseTool):
+class AvailabilityTool(BaseTool):
     """Tool for checking date/time availability"""
     
     def __init__(self):
@@ -24,17 +24,20 @@ class DateCheckTool(BaseTool):
         Returns:
             Availability status dict
         """
+        print(f"🔧 [AVAILABILITY_TOOL] Executing with params: {params}")
         error = self.validate_params(params, ['date'])
         if error:
+            print(f"❌ [AVAILABILITY_TOOL] Validation failed: {error}")
             return {'success': False, 'error': error}
         
         try:
-            result = await self.api_client.check_availability(
-                date=params['date'],
-                time=params.get('time')
-            )
+            result = await self.api_client.call_tool('check-availability', params)
+            print(f"✅ [AVAILABILITY_TOOL] Availability check completed")
             return result
         except Exception as e:
+            print(f"❌ [AVAILABILITY_TOOL] Error: {str(e)}")
+            import traceback
+            traceback.print_exc()
             return {
                 'success': False,
                 'error': str(e)

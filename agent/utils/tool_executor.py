@@ -2,7 +2,7 @@
 Tool executor - executes tool calls and handles responses
 """
 from typing import Dict, Any, Optional
-from tools import WeatherTool, BookingTool, EmailTool, DateCheckTool
+from tools import WeatherTool, BookingTool, EmailTool, AvailabilityTool, TodayDateTool
 
 
 class ToolExecutor:
@@ -13,7 +13,8 @@ class ToolExecutor:
             'weather': WeatherTool(),
             'create-booking': BookingTool(),
             'send-email': EmailTool(),
-            'check-availability': DateCheckTool(),
+            'check-availability': AvailabilityTool(),
+            'check-date': TodayDateTool(),
         }
     
     async def execute(self, tool_name: str, params: Dict[str, Any]) -> Dict[str, Any]:

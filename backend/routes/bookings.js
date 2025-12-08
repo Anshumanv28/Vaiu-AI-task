@@ -8,6 +8,10 @@ const { sendBookingConfirmation } = require("../services/emailService");
  * Create a new booking with inline duplicate check
  */
 router.post("/", async (req, res) => {
+  const startTime = Date.now();
+  console.log(`🌐 [BACKEND] POST /api/bookings - Booking creation request`);
+  console.log(`📦 [BACKEND] Request body:`, JSON.stringify(req.body, null, 2));
+
   try {
     const {
       numberOfGuests,
@@ -37,6 +41,19 @@ router.post("/", async (req, res) => {
       });
     }
 
+    // Normalize seating preference to lowercase and validate
+    let normalizedSeatingPreference = "indoor"; // default
+    if (seatingPreference) {
+      const normalized = seatingPreference.toLowerCase().trim();
+      if (normalized === "indoor" || normalized === "outdoor") {
+        normalizedSeatingPreference = normalized;
+      } else {
+        console.warn(
+          `⚠️ [BACKEND] Invalid seating preference "${seatingPreference}", defaulting to "indoor"`
+        );
+      }
+    }
+
     // Inline duplicate check - exact date + time match only
     const existing = await Booking.findOne({
       bookingDate: new Date(bookingDate),
@@ -51,6 +68,9 @@ router.post("/", async (req, res) => {
     }
 
     // Create booking (customerName defaults to "Guest" in schema)
+    console.log(
+      `📋 [BACKEND] Seating preference: "${seatingPreference}" → normalized to "${normalizedSeatingPreference}"`
+    );
     const booking = await Booking.create({
       numberOfGuests,
       bookingDate: new Date(bookingDate),
@@ -58,17 +78,28 @@ router.post("/", async (req, res) => {
       cuisinePreference: cuisinePreference || "",
       specialRequests: specialRequests || "",
       weatherInfo: weatherInfo || null,
-      seatingPreference: seatingPreference || "indoor",
+      seatingPreference: normalizedSeatingPreference,
       customerEmail: customerEmail || "",
       customerContact: customerContact || "",
       status: "pending",
     });
 
+    const duration = Date.now() - startTime;
+    console.log(`✅ [BACKEND] Booking created successfully in ${duration}ms`);
+    console.log(
+      `📋 [BACKEND] Booking ID: ${booking._id}, Date: ${bookingDate}, Time: ${bookingTime}, Guests: ${numberOfGuests}`
+    );
+
     // Send email confirmation (log errors but don't fail booking)
     try {
       await sendBookingConfirmation(booking);
+      console.log(
+        `📧 [BACKEND] Confirmation email sent for booking ${booking._id}`
+      );
     } catch (emailError) {
-      console.error("Email failed but booking created:", emailError.message);
+      console.error(
+        `❌ [BACKEND] Email failed but booking created: ${emailError.message}`
+      );
       // Don't throw - booking still succeeds
     }
 
@@ -173,6 +204,10 @@ router.delete("/:id", async (req, res) => {
  * Query params: date (YYYY-MM-DD), time (HH:mm, optional)
  */
 router.get("/availability", async (req, res) => {
+  const startTime = Date.now();
+  console.log(`🌐 [BACKEND] GET /api/bookings/availability`);
+  console.log(`📦 [BACKEND] Query params:`, JSON.stringify(req.query, null, 2));
+
   try {
     const { date, time } = req.query;
 
@@ -211,6 +246,14 @@ router.get("/availability", async (req, res) => {
     const existingBookings = await Booking.find(query);
 
     const isAvailable = existingBookings.length === 0;
+    const duration = Date.now() - startTime;
+
+    console.log(`✅ [BACKEND] Availability check completed in ${duration}ms`);
+    console.log(
+      `📊 [BACKEND] Result: ${isAvailable ? "AVAILABLE" : "NOT AVAILABLE"} (${
+        existingBookings.length
+      } existing booking(s))`
+    );
 
     res.json({
       success: true,

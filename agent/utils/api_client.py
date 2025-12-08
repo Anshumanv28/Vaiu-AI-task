@@ -12,19 +12,24 @@ class BackendAPIClient:
     def __init__(self):
         self.base_url = os.getenv('BACKEND_URL', 'http://localhost:5000')
     
-    async def get_weather(self, date: str) -> Dict[str, Any]:
+    async def get_weather(self, date: str, time: Optional[str] = None) -> Dict[str, Any]:
         """
-        Fetch weather data for a specific date
+        Fetch weather data for a specific date and optionally time
         Args:
             date: Date in YYYY-MM-DD format
+            time: Optional time in HH:mm format (24-hour, e.g., "19:00" for 7 PM)
         Returns:
             Weather data dict with condition, temperature, description
         """
-        print(f"🌐 [API_CLIENT] Fetching weather for date: {date}")
+        time_str = f" at {time}" if time else ""
+        print(f"🌐 [API_CLIENT] Fetching weather for date: {date}{time_str}")
         async with aiohttp.ClientSession() as session:
             url = f"{self.base_url}/api/weather/{date}"
-            print(f"🌐 [API_CLIENT] GET {url}")
-            async with session.get(url) as response:
+            params = {}
+            if time:
+                params['time'] = time
+            print(f"🌐 [API_CLIENT] GET {url} with params: {params}")
+            async with session.get(url, params=params) as response:
                 if response.status == 200:
                     data = await response.json()
                     print(f"✅ [API_CLIENT] Weather fetched successfully")
