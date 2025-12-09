@@ -269,11 +269,11 @@ export const useLiveKit = () => {
                         if (isDuplicate) {
                           return prev; // Ignore duplicate
                         }
-                        const newEntry = {
-                          speaker,
-                          text: transcriptText,
-                          timestamp: new Date(),
-                        };
+                      const newEntry = {
+                        speaker,
+                        text: transcriptText,
+                        timestamp: new Date(),
+                      };
                         return [...prev, newEntry];
                       });
                     }

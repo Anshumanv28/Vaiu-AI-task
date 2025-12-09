@@ -376,3 +376,12 @@ htmlcov/
 # Local configuration
 config.local.json
 settings.local.json
+
+# Assignment files
+Vaiu AI SDE Intern Assignment.pdf
+vaiu AI SDE Intern task.txt
+
+# Observability data
+observability-*/
+**/observability-*/
+
